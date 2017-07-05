@@ -5,7 +5,7 @@ var navs = [{
 	"children": [{
 		"title": "添加分类",
 		"icon": "&#xe609;",
-		"href": "nav.html"
+		"href": "/admin/article/ification"
 	}, {
 		"title": "分类列表",
 		"icon": "&#xe63c;",
@@ -13,7 +13,7 @@ var navs = [{
 	}]
 },{
 	"title": "文章管理",
-	"icon": "fa-cubes",
+	"icon": "&#xe621;",
 	"children": [{
 		"title": "发布文章",
 		"icon": "&#xe609;",
@@ -25,7 +25,7 @@ var navs = [{
 	}]
 },{
 	"title": "网站模块设置",
-	"icon": "fa-cubes",
+	"icon": "&#xe632;",
 	"children": [{
 		"title": "成功案例设置",
 		"icon": "&#xe609;",
@@ -33,6 +33,18 @@ var navs = [{
 	}, {
 		"title": "实用信息设置",
 		"icon": "&#xe63c;",
+		"href": "form.html"
+	}]
+},{
+	"title": "下载管理",
+	"icon": "&#xe62f;",
+	"children": [{
+		"title": "下载分类",
+		"icon": "&#xe609;",
+		"href": "nav.html"
+	}, {
+		"title": "文件列表",
+		"icon": "&#xe64c;",
 		"href": "form.html"
 	}]
 },{

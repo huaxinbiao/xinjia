@@ -27,6 +27,31 @@ exports.insertData = function(coll, data, callback){
 }
 
 /**
+ * 插入数据
+ * @method insertData
+ * @param {String} mongoConnectUrl 数据库连接
+ * @param {String} coll 集合名称
+ * @param {Array} data 插入的数据
+ * @param {Function} callback 回调函数
+ * @return {Null}
+ *
+ */
+exports.insertOne = function(coll, data, callback){
+	MongoClient.connect(mongoConnectUrl, function(err, db){
+		if(err) return console.log(err);
+		// 打开集合
+		var collection = db.collection(coll);
+		// 插入数据
+		collection.insertOne(data, function(err, result){
+			//console.log(result)
+			// 记得要关闭数据库
+			db.close();
+			callback(err, result);
+		});
+	});
+}
+
+/**
  * 查询数据
  * @method findData
  * @param {String} mongoConnectUrl 数据库连接

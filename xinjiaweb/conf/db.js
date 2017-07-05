@@ -1,8 +1,8 @@
 /*连接方法*/
 const MongoClient = require('mongodb').MongoClient;
-const mongoConnectUrl = 'mongodb://localhost:27017/chat';
+const mongoConnectUrl = 'mongodb://localhost:27017/xinjia';
 
-module.exports = {  
+module.exports = {
     MongoClient,  
     mongoConnectUrl
 };
