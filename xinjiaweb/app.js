@@ -37,7 +37,7 @@ var sessionMiddleware = session({
     saveUninitialized: true,  //是否设置session在存储容器中可以给修改
 		secret: settings.cookieSecret,
 		key: settings.db, //cookie name
-		cookie: {maxAge:1000 * 60 * 60 * 24 * 1},//1天
+		cookie: {maxAge:1000 * 60 * 60 * 8},//8小时
 		store: new MongoStore({
 			db: settings.db,
 			host: settings.host,

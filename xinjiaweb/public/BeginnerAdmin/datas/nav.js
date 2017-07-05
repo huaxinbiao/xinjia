@@ -5,11 +5,11 @@ var navs = [{
 	"children": [{
 		"title": "添加分类",
 		"icon": "&#xe609;",
-		"href": "/admin/article/ification"
+		"href": "/admin/article/addification"
 	}, {
 		"title": "分类列表",
 		"icon": "&#xe63c;",
-		"href": "form.html"
+		"href": "/admin/article/listification"
 	}]
 },{
 	"title": "文章管理",

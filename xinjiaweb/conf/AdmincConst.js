@@ -1,4 +1,5 @@
 module.exports = Object.freeze({
     NAME: '15210213106',
-    PASSWORD: '123654'
+    PASSWORD: '123654',
+    SOLPREFIX: 'xj_'
 });

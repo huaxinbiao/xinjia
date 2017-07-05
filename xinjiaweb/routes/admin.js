@@ -14,6 +14,9 @@ const fs = require('fs');
 //回调
 const Promise = require('bluebird');
 
+
+
+
 /* GET users listing. */
 //权限控制
 router.all('*', function(req, res, next){
@@ -32,13 +35,28 @@ router.all('*', function(req, res, next){
 	next();
 });
 
-//登录
+
+
+
+
+//404
+router.get('/404', function(req, res, next) {
+	res.send('页面访问错误，您访问的内容不存在！');
+});
+
+
+//登录页面
 router.get('/login', function(req, res, next) {
 	res.render('admin/login/index', {
 		bodyclass: 'beg-login-bg'
 	});
   	//res.send('respond with a resource');
 });
+
+
+
+
+//登录
 router.post('/login', function(req, res, next){
     if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(req.body.userName) || /(^\_)|(\__)|(\_+$)/.test(req.body.userName)){
       	return res.json({
@@ -79,6 +97,9 @@ router.post('/login', function(req, res, next){
 	//res.redirect('/index');
 })
 
+
+
+
 //首页
 router.get('/index', function(req, res, next) {
 	res.render('admin/index/index', {
@@ -87,11 +108,17 @@ router.get('/index', function(req, res, next) {
   	//res.send('respond with a resource');
 });
 
+
+
+
 //退出登录
 router.get('/outlogin', function(req, res){
 	req.session.user = null;
 	res.redirect('/admin/login');
 })
+
+
+
 
 //欢迎页
 router.get('/main', function(req, res, next) {
@@ -99,12 +126,18 @@ router.get('/main', function(req, res, next) {
   	//res.send('respond with a resource');
 });
 
-//文章分类页
-router.get('/article/ification', function(req, res, next) {
-	res.render('admin/article/ification', {
+
+
+
+//添加文章分类页
+router.get('/article/addification', function(req, res, next) {
+	res.render('admin/article/addification', {
 		bodyclass: null
 	});
 });
+
+
+
 
 /**
  * 添加文章分类
@@ -122,7 +155,7 @@ router.post('/article/addification', function(req, res, next) {
 	if(!validator.isByteLength(req.body.title, {min:1, max:100}) || !validator.isByteLength(req.body.describe, {min:1, max:100})){
 		return res.json({
 			code: 101,
-			msg: '数据不全'
+			msg: '数据不完整'
 		});
 	}
 	
@@ -150,6 +183,156 @@ router.post('/article/addification', function(req, res, next) {
 		});
 	})
 });
+
+
+
+
+//文章分类列表页
+router.get('/article/listification', function(req, res, next) {
+	//opation搜索where条件
+	//screem指定那些列显示和不显示 （0表示不显示 1表示显示)
+	var opation = {
+		delete: 0
+	};
+	var screem = {};
+	Basic.findData('ification', opation, screem, function(err, result){
+		if(err){
+			return res.redirect('/admin/404');
+		}
+		res.render('admin/article/listification', {
+			bodyclass: null,
+			result: result
+		});
+	})
+});
+
+
+
+
+/*
+ * 编辑文章分类页
+ * @param {String} ification_id 分类id
+ */
+router.get('/article/editification', function(req, res, next) {
+	var ification_id = req.query.ification_id;
+	if(!validator.isByteLength(ification_id, {min:24, max:24})){
+		return res.redirect('/admin/404');
+	}
+	
+	//opation搜索where条件
+	//screem指定那些列显示和不显示 （0表示不显示 1表示显示)
+	var opation = {
+		_id: ObjectID(ification_id)
+	};
+	var screem = {};
+	Basic.findOne('ification', opation, screem, function(err, result){
+		if(err){
+			return res.redirect('/admin/404');
+		}
+		res.render('admin/article/editification', {
+			bodyclass: null,
+			result: result
+		});
+	})
+});
+
+
+
+
+
+/*
+ * 编辑文章分类
+ * @param {String} ification_id 分类id
+ */
+router.post('/article/editification', function(req, res, next) {
+	var ification_id = req.body.ification_id;
+	if(!validator.isByteLength(ification_id, {min:24, max:24})){
+		return res.json({
+			code: 101,
+			msg: '分类id错误'
+		});
+	}
+	
+	if(!validator.isByteLength(req.body.title, {min:1, max:100}) || !validator.isByteLength(req.body.describe, {min:1, max:100})){
+		return res.json({
+			code: 101,
+			msg: '数据不完整'
+		});
+	}
+	
+	var data = {
+		title: req.body.title,
+		describe: req.body.describe,
+		ification_banner: req.body.ification_banner,
+		time: new Date().getTime().toString()
+	}
+	//更新分类信息；
+	Basic.updateOne('ification', {_id: ObjectID(ification_id)}, data, function(err, result){
+		if(err){
+			return res.json({
+				code: 101,
+				msg: '修改失败'
+			});
+		}
+		res.status(200);
+    	return res.json({
+			code: 200,
+			msg: '修改成功'
+		});
+	})
+});
+
+
+
+/*
+ * 删除文章分类，先判断下面有无文章
+ * @param {String} ification_id 分类id
+ */
+router.post('/article/delification', function(req, res, next) {
+	//articlecollection,储存所有的文章id,标题，所属分类id
+	//opation搜索where条件
+	//screem指定那些列显示和不显示 （0表示不显示 1表示显示)
+	var ification_id = req.body.ification_id;
+	if(!ification_id){
+		return res.json({
+			code: 101,
+			msg: '缺少分类'
+		});
+	}
+	var opation = {
+		ification_id: ification_id
+	};
+	var screem = {};
+	Basic.findData('articlecollection', opation, screem, function(err, result){
+		if(err){
+			return res.redirect('/admin/404');
+		}
+		if(result.length > 0){
+			return res.json({
+				code: 101,
+				msg: '分类下存在文章，请先删除文章。'
+			});
+		}
+		//分类下不存在文章，逻辑删除分类；
+		Basic.updateOne('ification', {_id: ObjectID(ification_id)}, {delete: 1}, function(err1, result1){
+			if(err1){
+				return res.json({
+					code: 101,
+					msg: '删除失败'
+				});
+			}
+			res.status(200);
+	    	return res.json({
+				code: 200,
+				msg: '删除成功'
+			});
+		})
+	})
+	
+})
+
+
+
 
 //文件上传
 router.post('/upload', function(req, res) {

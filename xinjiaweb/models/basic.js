@@ -82,6 +82,32 @@ exports.findData = function (coll, opation, screem={}, callback=function(){}, ke
 	});
 }
 
+
+/**
+ * 查询一条数据
+ * @method findOne
+ * @param {String} mongoConnectUrl 数据库连接
+ * @param {String} coll 集合名称
+ * @param {Object} opation 条件
+ * @param {Function} callback 回调函数
+ * @return {Null}
+ *
+ */
+exports.findOne = function (coll, opation, screem={}, callback=function(){}){
+	//打开数据库
+	MongoClient.connect(mongoConnectUrl, function(err, db){
+		if(err){
+			return callback(err);
+		}
+		// 打开集合
+		var collection = db.collection(coll);
+		collection.findOne(opation, screem, function(err, result){
+			db.close();
+			callback(err, result);//成功
+		})
+	});
+}
+
 /**
  * @method deleteData
  * @param {String} mongoConnectUrl 数据库连接
