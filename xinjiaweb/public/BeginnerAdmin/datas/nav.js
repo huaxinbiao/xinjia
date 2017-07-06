@@ -1,7 +1,6 @@
 var navs = [{
 	"title": "分类管理",
 	"icon": "fa-cubes",
-	"spread": true,
 	"children": [{
 		"title": "添加分类",
 		"icon": "&#xe609;",
@@ -14,14 +13,15 @@ var navs = [{
 },{
 	"title": "文章管理",
 	"icon": "&#xe621;",
+	"spread": true,
 	"children": [{
 		"title": "发布文章",
 		"icon": "&#xe609;",
-		"href": "nav.html"
+		"href": "/admin/article/addarticle"
 	}, {
 		"title": "文章列表",
 		"icon": "&#xe63c;",
-		"href": "form.html"
+		"href": "/admin/article/listarticle/1"
 	}]
 },{
 	"title": "网站模块设置",

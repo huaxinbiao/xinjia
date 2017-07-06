@@ -25,12 +25,12 @@ router.all('*', function(req, res, next){
 	var user = req.session.user;
 	if(Route.indexOf(url) > -1){
 		if(user){
-			res.redirect('/admin/index');
+			return res.redirect('/admin/index');
 		}
 		return next();
 	}
 	if(!user){
-	  	res.redirect('/');
+	  	return res.redirect('/');
 	}
 	next();
 });
@@ -334,6 +334,173 @@ router.post('/article/delification', function(req, res, next) {
 
 
 
+/**
+ * 添加文章页
+ * @method addArticle
+ * @param {String} ification 分类数据库文档
+ * @param {String} delete 分类逻辑删除 0否 1是
+ *
+ */
+router.get('/article/addarticle', function(req, res, next) {
+	//opation搜索where条件
+	//screem指定那些列显示和不显示 （0表示不显示 1表示显示)
+	var opation = {
+		delete: 0
+	};
+	var screem = {
+		describe: 0
+	};
+	Basic.findData('ification', opation, screem, function(err, result){
+		if(err){
+			return res.redirect('/admin/404');
+		}
+		//输出分类
+		res.render('admin/article/addarticle', {
+			bodyclass: null,
+			result: result
+		});
+	})
+});
+
+
+
+
+/**
+ * 添加文章
+ * @method addArticle
+ * @param {String} ification 分类数据库文档
+ * @param {String} delete 分类逻辑删除 0否 1是
+ *
+ */
+router.post('/article/addarticle', function(req, res, next) {
+	var ification_id = req.body.ification;
+	if(!validator.isByteLength(ification_id, {min:24, max:24})){
+		return res.json({
+			code: 101,
+			msg: '分类id错误'
+		});
+	}
+	if(!req.body.label){
+		return res.json({
+			code: 101,
+			msg: '文章标签错误'
+		});
+	}
+	if(!validator.isByteLength(req.body.title, {min:1, max:150}) || !validator.isByteLength(req.body.briefing, {max:150}) || !validator.isByteLength(req.body.keywords, {max:150}) || !validator.isByteLength(req.body.author, {max:50}) || !validator.isByteLength(req.body.content, {max:30000})){
+		return res.json({
+			code: 101,
+			msg: '数据不完整'
+		});
+	}
+	var opation = {
+		_id: ObjectID(ification_id)
+	};
+	var screem = {
+		title: 1
+	};
+	Basic.findOne('ification', opation, screem, function(err, result){
+		if(err || !result){
+			return res.json({
+				code: 101,
+				msg: '分类id错误'
+			});
+		}
+		//分类存在，添加文章
+		/*
+		 * title，文章标题
+		 * briefing，文章简介
+		 * author，文章作者
+		 * ification，所属分类
+		 * content，文章内容
+		 * label，文章标签
+		 * time，文章添加时间
+		 * keywords，页面关键字
+		 */
+		var data = {
+			title: req.body.title,
+			briefing: req.body.briefing,
+			author: req.body.author,
+			ification:  req.body.ification,
+			label: req.body.label,
+			keywords: req.body.keywords,
+			time: new Date().getTime().toString()
+		}
+		Basic.insertOne(AdmincConst.SOLPREFIX + ification_id, data, function(err1, result1){
+			if(err1){
+				return res.json({
+					code: 101,
+					msg: '添加失败'
+				});
+			}
+			/*
+			 * articlecollection,储存所有的文章id,标题，所属分类id
+			 * article_id，文章id
+			 * title，文章标题
+			 * ification_id，分类id
+			 * ification_title,分类名称
+			 */
+			var data_collection = {
+				article_id: result1.ops[0]._id,
+				title: req.body.title,
+				author: req.body.author,
+				label: req.body.label,
+				ification_id: ification_id,
+				ification_title: result.title,
+				time: new Date().getTime().toString()
+			}
+			Basic.insertOne('articlecollection', data_collection, function(err2, result2){
+				if(err2){
+					return res.json({
+						code: 101,
+						msg: '添加失败'
+					});
+				}
+				res.status(200);
+		    	return res.json({
+					code: 200,
+					msg: '添加成功'
+				});
+			})
+		})
+	})
+});
+
+
+
+
+/**
+ * 文章列表页
+ * @method listArticle
+ * @param {String} ification 分类数据库文档
+ * @param {String} delete 分类逻辑删除 0否 1是
+ *
+ */
+router.get('/article/listarticle/:id', function(req, res, next) {
+	//opation搜索where条件
+	//screem指定那些列显示和不显示 （0表示不显示 1表示显示)
+	console.log(req.params.id)
+	res.render('admin/article/listarticle', {
+		bodyclass: null
+	});
+	
+	/*var opation = {
+		delete: 0
+	};
+	var screem = {};
+	Basic.findData('articlecollection', opation, screem, function(err, result){
+		if(err){
+			return res.redirect('/admin/404');
+		}
+		res.render('admin/article/listification', {
+			bodyclass: null,
+			result: result
+		});
+	})*/
+});
+
+
+
+
 //文件上传
 router.post('/upload', function(req, res) {
 	var user = req.session.user;
@@ -343,8 +510,9 @@ router.post('/upload', function(req, res) {
 			msg: '请先登录'
 		});
 	}
+	var Route_type = ['ification_img', 'file'];
 	var type = req.query.type;
-	if(!type){
+	if(!type || Route_type.indexOf(type) == -1){
 		return res.json({
 			code: 101,
 			msg: '参数错误'
@@ -395,6 +563,13 @@ router.post('/upload', function(req, res) {
 		};
 		
 		var uploadFolder = './uploads/ification/';
+		if(type == 'file'){
+			createFolder('./uploads/article/');
+			var d = new Date();
+			var str = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+			uploadFolder = './uploads/article/'+str+'/';
+			console.log(uploadFolder);
+		}
 		createFolder(uploadFolder)
 		// 移动文件
 	  	let oldPath = path.join(req.file.path);
@@ -407,6 +582,18 @@ router.post('/upload', function(req, res) {
 					msg: '上传失败'
 				});
 		    } else {
+				if(type == 'file'){
+					//文章编辑器
+					res.status(200);
+		        	return res.json({
+						code: 0,
+						data: {
+							src: req.headers.origin+'/'+newPath,
+							title: req.headers.origin
+						},
+						msg: '上传成功'
+					});
+				}
 				res.status(200);
 	        	return res.json({
 					code: 200,

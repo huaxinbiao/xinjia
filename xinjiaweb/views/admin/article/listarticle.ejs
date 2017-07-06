@@ -1,0 +1,77 @@
+﻿<% include ../layout/header.ejs %>
+		<link rel="stylesheet" href="/BeginnerAdmin/css/table.css" />
+		<div class="admin-main">
+			<a href="javascript:;" onclick="location.reload()" class="layui-btn layui-btn-small">刷新</a>
+			<!--<blockquote class="layui-elem-quote">
+				<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
+					<i class="layui-icon">&#xe608;</i> 添加信息
+				</a>
+				<a href="#" class="layui-btn layui-btn-small" id="import">
+					<i class="layui-icon">&#xe608;</i> 导入信息
+				</a>
+				<a href="#" class="layui-btn layui-btn-small">
+					<i class="fa fa-shopping-cart" aria-hidden="true"></i> 导出信息
+				</a>
+				<a href="#" class="layui-btn layui-btn-small" id="getSelected">
+					<i class="fa fa-shopping-cart" aria-hidden="true"></i> 获取全选信息
+				</a>
+				<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
+					<i class="layui-icon">&#xe615;</i> 搜索
+				</a>
+			</blockquote>-->
+			<fieldset class="layui-elem-field">
+				<legend>文章列表</legend>
+				<div class="layui-field-box layui-form">
+					<table class="layui-table admin-table">
+						<thead>
+							<tr>
+								<th style="width: 330px;">文章名称</th>
+								<th>文章简介</th>
+								<th style="width: 200px;">所属分类</th>
+								<th style="width: 100px;">文章标记</th>
+								<th style="width: 120px;">发布时间</th>
+								<th style="width: 130px;">操作</th>
+							</tr>
+						</thead>
+						<tbody id="content">
+							<tr>
+								<td>{{ item.name }}</td>
+								<td>{{ item.age }}</td>
+								<td>分类名称</td>
+								<td>成功案例</td>
+								<td>2017-10-10 12:44</td>
+								<td>
+									<a href="javascript:;" data-id="1" class="layui-btn layui-btn-mini">编辑</a>
+									<a href="javascript:;" data-id="1" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</fieldset>
+			<div class="admin-table-page">
+				<div id="paged" class="page">
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="/BeginnerAdmin/plugins/layui/layui.js"></script>
+		<script>
+			layui.use(['laypage', 'form'], function() {
+				var $ = layui.jquery,
+					layer = layui.layer, //获取当前窗口的layer对象
+					form = layui.form(),
+					laypage = layui.laypage;
+					
+					laypage({
+					    cont: 'paged'
+					    ,pages: 100
+					    ,first: 1
+					    ,last: 100
+					    ,prev: '<em><</em>'
+					    ,next: '<em>></em>'
+					});
+			});
+		</script>
+	</body>
+
+</html>
