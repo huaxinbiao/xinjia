@@ -25,7 +25,7 @@
 					<table class="layui-table admin-table">
 						<thead>
 							<tr>
-								<th style="width: 330px;">文章名称</th>
+								<th>文章标题</th>
 								<th>文章简介</th>
 								<th style="width: 200px;">所属分类</th>
 								<th style="width: 100px;">文章标记</th>
@@ -34,17 +34,23 @@
 							</tr>
 						</thead>
 						<tbody id="content">
-							<tr>
-								<td>{{ item.name }}</td>
-								<td>{{ item.age }}</td>
-								<td>分类名称</td>
-								<td>成功案例</td>
-								<td>2017-10-10 12:44</td>
-								<td>
-									<a href="javascript:;" data-id="1" class="layui-btn layui-btn-mini">编辑</a>
-									<a href="javascript:;" data-id="1" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
-								</td>
-							</tr>
+							<% if(result.length < 1){ %>
+								<tr><th colspan="6">暂无数据，请先添加文章</th></tr>
+							<% }else{ %>
+								<% result.forEach(function(item, index){ %>
+									<tr>
+										<td><%= item.title %></td>
+										<td><%= item.briefing %></td>
+										<td><%= item.ification_title %></td>
+										<td><%= item.label==1?'成功案例':'实用信息' %></td>
+										<td><%= formatDateTime(item.time, 1) %></td>
+										<td>
+											<a href="javascript:;" data-id="<%= item.article_id %>" class="layui-btn layui-btn-mini edit">编辑</a>
+											<a href="javascript:;" data-id="<%= item.article_id %>" class="layui-btn layui-btn-danger layui-btn-mini del">删除</a>
+										</td>
+									</tr>
+								<% }) %>
+							<% } %>
 						</tbody>
 					</table>
 				</div>
@@ -64,11 +70,18 @@
 					
 					laypage({
 					    cont: 'paged'
-					    ,pages: 100
+					    ,pages: <%= page %>
+					    ,curr: <%= curr %>
 					    ,first: 1
-					    ,last: 100
+					    ,last: <%= page %>
 					    ,prev: '<em><</em>'
 					    ,next: '<em>></em>'
+					    ,jump: function(obj, first){
+					    	var curr = obj.curr;
+					    	if(!first){
+					    		location.href = '/admin/article/listarticle/<%= ification %>?page='+curr
+					    	}
+					    }
 					});
 			});
 		</script>

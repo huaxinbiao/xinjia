@@ -4,7 +4,9 @@ var AdmincConst = require('../conf/AdmincConst.js');
 const crypto = require('crypto');//加密密码
 const validator = require('validator');//表单验证
 const Basic = require('../models/basic.js');
+const Page = require('../models/page.js');
 const ObjectID = require('mongodb').ObjectID;
+const Function = require('../models/function.js')
 //文件上传
 const muilter = require('../models/multerUtil.js');
 const path = require('path');
@@ -412,7 +414,7 @@ router.post('/article/addarticle', function(req, res, next) {
 		 * author，文章作者
 		 * ification，所属分类
 		 * content，文章内容
-		 * label，文章标签
+		 * label，文章标签,1为成功案例，2为实用信息
 		 * time，文章添加时间
 		 * keywords，页面关键字
 		 */
@@ -435,6 +437,7 @@ router.post('/article/addarticle', function(req, res, next) {
 			/*
 			 * articlecollection,储存所有的文章id,标题，所属分类id
 			 * article_id，文章id
+			 * briefing，文章简介
 			 * title，文章标题
 			 * ification_id，分类id
 			 * ification_title,分类名称
@@ -442,6 +445,7 @@ router.post('/article/addarticle', function(req, res, next) {
 			var data_collection = {
 				article_id: result1.ops[0]._id,
 				title: req.body.title,
+				briefing: req.body.briefing,
 				author: req.body.author,
 				label: req.body.label,
 				ification_id: ification_id,
@@ -473,29 +477,34 @@ router.post('/article/addarticle', function(req, res, next) {
  * @method listArticle
  * @param {String} ification 分类数据库文档
  * @param {String} delete 分类逻辑删除 0否 1是
- *
+ *@param {String} type 文章分类，为1，全部分类
  */
-router.get('/article/listarticle/:id', function(req, res, next) {
+router.get('/article/listarticle/:type', function(req, res, next) {
 	//opation搜索where条件
 	//screem指定那些列显示和不显示 （0表示不显示 1表示显示)
-	console.log(req.params.id)
-	res.render('admin/article/listarticle', {
-		bodyclass: null
-	});
-	
-	/*var opation = {
-		delete: 0
-	};
-	var screem = {};
-	Basic.findData('articlecollection', opation, screem, function(err, result){
+	var page = req.query.page ? req.query.page : '1';
+	if(!validator.isNumeric(page)){
+		res.redirect('/admin/article/listarticle/1');
+	}
+	page = parseInt(page);
+	var opation = {}
+	if(req.params.type != 1){
+		opation.ification_id = req.params.type;
+	}
+	var strip = 20;
+	Page.find('articlecollection', opation, {}, page, strip, function(err, docs, total){
 		if(err){
 			return res.redirect('/admin/404');
 		}
-		res.render('admin/article/listification', {
+		res.render('admin/article/listarticle', {
 			bodyclass: null,
-			result: result
+			result: docs,
+			page: total/strip,
+			curr: page,
+			ification: req.params.type,
+			formatDateTime: Function.formatDateTime
 		});
-	})*/
+	})
 });
 
 

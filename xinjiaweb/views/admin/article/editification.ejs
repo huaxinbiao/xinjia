@@ -51,8 +51,13 @@
 					}
 				});
 
+				var t_fun = false;
 				//监听提交
 				form.on('submit(demo1)', function(data) {
+					if(t_fun){
+						return false;
+					}
+					t_fun = true;
 					$.post('/admin/article/editification', data.field, function(res){
 						if(res.code == 200){
 							layer.msg('修改成功', function(){
@@ -61,7 +66,8 @@
 								parent.layer.close(index); //再执行关闭 
 							});
 						}else{
-							layer.msg(res.msg)
+							layer.msg(res.msg);
+							t_fun = false;
 						}
 					})
 					return false;

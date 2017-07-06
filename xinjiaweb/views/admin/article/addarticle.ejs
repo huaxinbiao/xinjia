@@ -102,16 +102,21 @@
 						}
 					}
 				});
-
+				var t_fun = false;
 				//监听提交
 				form.on('submit(demo1)', function(data) {
+					if(t_fun){
+						return false;
+					}
+					t_fun = true;
 					$.post('/admin/article/addarticle', data.field, function(res){
 						if(res.code == 200){
 							layer.msg('添加成功', function(){
 								location.reload();
 							});
 						}else{
-							layer.msg(res.msg)
+							layer.msg(res.msg);
+							t_fun = false;
 						}
 					})
 					return false;
