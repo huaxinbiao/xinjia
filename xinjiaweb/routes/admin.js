@@ -6,7 +6,7 @@ const validator = require('validator');//表单验证
 const Basic = require('../models/basic.js');
 const Page = require('../models/page.js');
 const ObjectID = require('mongodb').ObjectID;
-const Function = require('../models/function.js')
+const Function = require('../models/function.js');
 //文件上传
 const muilter = require('../models/multerUtil.js');
 const path = require('path');
@@ -16,8 +16,9 @@ const fs = require('fs');
 //回调
 const Promise = require('bluebird');
 
-
-
+//导入路由
+const TopLevel = require('./admin_m.js');
+router.use('/toplevel', TopLevel);
 
 /* GET users listing. */
 //权限控制
@@ -422,7 +423,7 @@ router.post('/article/addarticle', function(req, res, next) {
 			title: req.body.title,
 			briefing: req.body.briefing,
 			author: req.body.author,
-			ification:  req.body.ification,
+			ification: req.body.ification,
 			label: req.body.label,
 			keywords: req.body.keywords,
 			content: req.body.content,
@@ -440,6 +441,7 @@ router.post('/article/addarticle', function(req, res, next) {
 			 * article_id，文章id
 			 * briefing，文章简介
 			 * title，文章标题
+		 	 * collection，文章所在库，与第一次ification_id相同
 			 * ification_id，分类id
 			 * ification_title,分类名称
 			 */
@@ -449,6 +451,7 @@ router.post('/article/addarticle', function(req, res, next) {
 				briefing: req.body.briefing,
 				author: req.body.author,
 				label: req.body.label,
+				collection: ification_id,
 				ification_id: ification_id,
 				ification_title: result.title,
 				time: new Date().getTime().toString()
@@ -545,7 +548,7 @@ router.post('/article/delarticle', function(req, res, next) {
 			});
 		}
 		//删除文章；
-		Basic.deleteData(AdmincConst.SOLPREFIX + result[0].ification_id, {_id: ObjectID(result[0].article_id)}, 1, function(err1, result1){
+		Basic.deleteData(AdmincConst.SOLPREFIX + result[0].collection, {_id: ObjectID(result[0].article_id)}, 1, function(err1, result1){
 			if(err1){
 				return res.json({
 					code: 101,
@@ -601,11 +604,11 @@ router.get('/article/editarticle', function(req, res, next) {
 				_id: ObjectID(result[0].article_id)
 			};
 			var screem = {};
-			Basic.findOne(AdmincConst.SOLPREFIX + result[0].ification_id, opation, screem, function(err2, result2){
-				if(err2){
+			console.log(result[0].collection)
+			Basic.findOne(AdmincConst.SOLPREFIX + result[0].collection, opation, screem, function(err2, result2){
+				if(err2||!result2){
 					return res.redirect('/admin/404');
 				}
-				console.log(result2)
 				res.render('admin/article/editarticle', {
 					bodyclass: null,
 					result: result1,
@@ -635,43 +638,86 @@ router.post('/article/editarticle', function(req, res, next) {
 			msg: '文章不存在'
 		});
 	}
-	var opation = {
-		article_id: ObjectID(article_id)
-	};
-	var screem = {};
-	Basic.findData('articlecollection', opation, screem, function(err, result){
-		if(err || result.length < 1){
+	Basic.findOne('ification', {_id: ObjectID(req.body.ification)}, {}, function(error, result_i){
+		if(error || !result_i){
 			return res.json({
 				code: 101,
-				msg: '删除失败'
+				msg: '分类id错误'
 			});
 		}
-		//删除文章；
-		Basic.deleteData(AdmincConst.SOLPREFIX + result[0].ification_id, {_id: ObjectID(result[0].article_id)}, 1, function(err1, result1){
-			if(err1){
+		var opation = {
+			article_id: ObjectID(article_id)
+		};
+		Basic.findData('articlecollection', opation, {}, function(err, result){
+			if(err || result.length < 1){
 				return res.json({
 					code: 101,
-					msg: '删除失败'
+					msg: '文章不存在'
 				});
 			}
-			
-			//删除articlecollection中的文章
-			Basic.deleteData('articlecollection', {article_id: result[0].article_id}, 1, function(err2, result2){
-				if(err2){
+			//修改文章
+			/*
+			 * title，文章标题
+			 * briefing，文章简介
+			 * author，文章作者
+			 * ification，所属分类
+			 * content，文章内容
+			 * label，文章标签,1为成功案例，2为实用信息
+			 * time，文章添加时间
+			 * keywords，页面关键字
+			 */
+			var data = {
+				title: req.body.title,
+				briefing: req.body.briefing,
+				author: req.body.author,
+				ification:  req.body.ification,
+				label: req.body.label,
+				keywords: req.body.keywords,
+				content: req.body.content,
+				time: new Date().getTime().toString()
+			}
+			Basic.updateOne(AdmincConst.SOLPREFIX + result[0].collection, {_id: ObjectID(article_id)}, data, function(err1, result1){
+				if(err1){
 					return res.json({
 						code: 101,
-						msg: '删除失败'
+						msg: '修改失败'
 					});
 				}
-				res.status(200);
-		    	return res.json({
-					code: 200,
-					msg: '删除成功'
-				});
+				
+				//修改articlecollection
+				/*
+				 * articlecollection,储存所有的文章id,标题，所属分类id
+				 * article_id，文章id
+				 * briefing，文章简介
+				 * title，文章标题
+				 * ification_id，分类id
+				 * ification_title,分类名称
+				 */
+				var data_collection = {
+					title: req.body.title,
+					briefing: req.body.briefing,
+					author: req.body.author,
+					label: req.body.label,
+					ification_id: req.body.ification,
+					ification_title: result_i.title,
+					time: new Date().getTime().toString()
+				}
+				Basic.updateOne('articlecollection', opation, data_collection, function(err2, result2){
+					if(err2){
+						return res.json({
+							code: 101,
+							msg: '修改失败'
+						});
+					}
+					res.status(200);
+			    	return res.json({
+						code: 200,
+						msg: '修改成功'
+					});
+				})
 			})
 		})
 	})
-	
 })
 
 
@@ -745,7 +791,7 @@ router.post('/upload', function(req, res) {
 			var d = new Date();
 			var str = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
 			uploadFolder = './uploads/article/'+str+'/';
-			console.log(uploadFolder);
+			//console.log(uploadFolder);
 		}
 		createFolder(uploadFolder)
 		// 移动文件
@@ -753,7 +799,7 @@ router.post('/upload', function(req, res) {
 	  	let newPath = path.join(uploadFolder, req.file.filename);
 	  	fs.rename(oldPath, newPath, (err) => {
 		    if (err) {
-		      	console.log(err);
+		      	//console.log(err);
 	        	return res.json({
 					code: 101,
 					msg: '上传失败'
