@@ -425,6 +425,7 @@ router.post('/article/addarticle', function(req, res, next) {
 			ification:  req.body.ification,
 			label: req.body.label,
 			keywords: req.body.keywords,
+			content: req.body.content,
 			time: new Date().getTime().toString()
 		}
 		Basic.insertOne(AdmincConst.SOLPREFIX + ification_id, data, function(err1, result1){
@@ -487,25 +488,192 @@ router.get('/article/listarticle/:type', function(req, res, next) {
 		res.redirect('/admin/article/listarticle/1');
 	}
 	page = parseInt(page);
-	var opation = {}
-	if(req.params.type != 1){
-		opation.ification_id = req.params.type;
-	}
-	var strip = 20;
-	Page.find('articlecollection', opation, {}, page, strip, function(err, docs, total){
+	//输出分类
+	Basic.findData('ification', {delete: 0}, {describe: 0}, function(err, result){
 		if(err){
 			return res.redirect('/admin/404');
 		}
-		res.render('admin/article/listarticle', {
-			bodyclass: null,
-			result: docs,
-			page: total/strip,
-			curr: page,
-			ification: req.params.type,
-			formatDateTime: Function.formatDateTime
-		});
+		var opation = {}
+		if(req.params.type != 1){
+			opation.ification_id = req.params.type;
+		}
+		var strip = 20;
+		Page.find('articlecollection', opation, {}, page, strip, function(err1, docs, total){
+			if(err1){
+				return res.redirect('/admin/404');
+			}
+			res.render('admin/article/listarticle', {
+				bodyclass: null,
+				result: docs,
+				page: total/strip,
+				curr: page,
+				ification_list: result,
+				ification: req.params.type,
+				formatDateTime: Function.formatDateTime
+			});
+		})
 	})
 });
+
+
+
+
+/*
+ * 删除文章，找到文章所在文档删除，然后删除articlecollection中的记录
+ * @param {String} article_id 文章id
+ */
+router.post('/article/delarticle', function(req, res, next) {
+	//articlecollection,储存所有的文章id,标题，所属分类id
+	//opation搜索where条件
+	//screem指定那些列显示和不显示 （0表示不显示 1表示显示)
+	var article_id = req.body.article_id;
+	if(!article_id){
+		return res.json({
+			code: 101,
+			msg: '文章不存在'
+		});
+	}
+	var opation = {
+		article_id: ObjectID(article_id)
+	};
+	var screem = {};
+	Basic.findData('articlecollection', opation, screem, function(err, result){
+		if(err || result.length < 1){
+			return res.json({
+				code: 101,
+				msg: '删除失败'
+			});
+		}
+		//删除文章；
+		Basic.deleteData(AdmincConst.SOLPREFIX + result[0].ification_id, {_id: ObjectID(result[0].article_id)}, 1, function(err1, result1){
+			if(err1){
+				return res.json({
+					code: 101,
+					msg: '删除失败'
+				});
+			}
+			
+			//删除articlecollection中的文章
+			Basic.deleteData('articlecollection', {article_id: result[0].article_id}, 1, function(err2, result2){
+				if(err2){
+					return res.json({
+						code: 101,
+						msg: '删除失败'
+					});
+				}
+				res.status(200);
+		    	return res.json({
+					code: 200,
+					msg: '删除成功'
+				});
+			})
+		})
+	})
+	
+})
+
+
+
+
+/*
+ * 编辑文章页
+ * @param {String} article_id 文章id
+ */
+router.get('/article/editarticle', function(req, res, next) {
+	var article_id = req.query.article_id;
+	if(!validator.isByteLength(article_id, {min:24, max:24})){
+		return res.redirect('/admin/404');
+	}
+	//opation搜索where条件
+	//screem指定那些列显示和不显示 （0表示不显示 1表示显示)
+	//获取文章存不存在
+	Basic.findData('articlecollection', {article_id: ObjectID(article_id)}, {}, function(err, result){
+		if(err || result.length < 1){
+			return res.redirect('/admin/404');
+		}
+		//获取分类
+		Basic.findData('ification', {delete: 0}, {describe: 0}, function(err1, result1){
+			if(err1){
+				return res.redirect('/admin/404');
+			}
+			//获取文章详情
+			var opation = {
+				_id: ObjectID(result[0].article_id)
+			};
+			var screem = {};
+			Basic.findOne(AdmincConst.SOLPREFIX + result[0].ification_id, opation, screem, function(err2, result2){
+				if(err2){
+					return res.redirect('/admin/404');
+				}
+				console.log(result2)
+				res.render('admin/article/editarticle', {
+					bodyclass: null,
+					result: result1,
+					docs: result2
+				});
+			})
+		})
+	})
+});
+
+
+
+
+
+/*
+ * 编辑文章
+ * @param {String} article_id 文章id
+ */
+router.post('/article/editarticle', function(req, res, next) {
+	//articlecollection,储存所有的文章id,标题，所属分类id
+	//opation搜索where条件
+	//screem指定那些列显示和不显示 （0表示不显示 1表示显示)
+	var article_id = req.body.article_id;
+	if(!article_id){
+		return res.json({
+			code: 101,
+			msg: '文章不存在'
+		});
+	}
+	var opation = {
+		article_id: ObjectID(article_id)
+	};
+	var screem = {};
+	Basic.findData('articlecollection', opation, screem, function(err, result){
+		if(err || result.length < 1){
+			return res.json({
+				code: 101,
+				msg: '删除失败'
+			});
+		}
+		//删除文章；
+		Basic.deleteData(AdmincConst.SOLPREFIX + result[0].ification_id, {_id: ObjectID(result[0].article_id)}, 1, function(err1, result1){
+			if(err1){
+				return res.json({
+					code: 101,
+					msg: '删除失败'
+				});
+			}
+			
+			//删除articlecollection中的文章
+			Basic.deleteData('articlecollection', {article_id: result[0].article_id}, 1, function(err2, result2){
+				if(err2){
+					return res.json({
+						code: 101,
+						msg: '删除失败'
+					});
+				}
+				res.status(200);
+		    	return res.json({
+					code: 200,
+					msg: '删除成功'
+				});
+			})
+		})
+	})
+	
+})
+
 
 
 
