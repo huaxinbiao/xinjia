@@ -1,0 +1,421 @@
+<% include ../layout/header.ejs %>
+        <div class="banner-nav-2017">
+        	<img src="/images/banner-2017.jpg" style="display: block;width: 100%;">
+        	<div>
+        		<dl>
+        			<dt><a href="javascript:;"><img src="/images/logo-2017.png"></a></dt>
+        			<dd>
+        				<a href="#" class="active">首页</a>
+        				<a href="#">关于我们</a>
+        				<a href="#">成功案例</a>
+        				<a href="#">实用信息</a>
+        				<span>13581810909</span>
+        			</dd>
+        		</dl>
+        	</div>
+        </div>
+        <!--二级分类显示-->
+        <div class="er-list-2017">
+        	<ul>
+        		<% for(i in ification){ %>
+        		<li>
+        			<a href="#" title="<%= ification[i].describe %>">
+        				<h2><%= ification[i].title %></h2>
+        				<span class="layui-elip"><%= ification[i].describe %></span>
+        			</a>
+        		</li>
+        		<% } %>
+        	</ul>
+        </div>
+        <div class="bgfa">
+        	<div class="aliyun">
+        		<h2 class="ph2">专业特长</h2>
+        		<div>
+        			<div class="aliyun_li active">
+        				<div class="aliyun_li_top">
+        					<i class="pbg-2017 pbg-2017-a1"></i>
+        					<span>婚姻家庭</span>
+        					<p>分类描述分类描述分类描述分类描述</p>
+        				</div>
+        				<div class="aliyun_li_con">
+        					<div class="aliyun_li_o">
+        						<span>离婚咨询</span>
+        						<span>财产分割</span>
+        					</div>
+        					<div class="aliyun_li_p">
+        						<div class="aliyun_li_t">
+        							<h3>婚姻家庭</h3>
+        							<p>分类描述分类描述分类描述分类描述</p>
+        							<a href="#">立即查看</a>
+        						</div>
+        						<div class="aliyun_li_t">
+        							<h3>婚姻家庭</h3>
+        							<p>分类描述分类描述分类描述分类描述</p>
+        							<a href="#">立即查看</a>
+        						</div>
+        						<!--<div class="aliyun_li_c">
+        							<div>
+        								<p>离婚咨询</p>
+        								<a href="#">立即查看</a>
+        							</div>
+        							<div>
+        								<p>财产分割</p>
+        								<a href="#">立即查看</a>
+        							</div>
+        						</div>-->
+        					</div>
+        				</div>
+        			</div>
+        			<div class="aliyun_li">
+        				<div class="aliyun_li_top">
+        					<i class="pbg-2017 pbg-2017-a2"></i>
+        					<span>房产纠纷</span>
+        					<p>分类描述分类描述分类描述分类描述</p>
+        				</div>
+        				<div class="aliyun_li_con">
+        					<div class="aliyun_li_o">
+        						<span>二手房买卖</span>
+        						<span>借名买房</span>
+        					</div>
+        					<div class="aliyun_li_p">
+        						<div class="aliyun_li_t">
+        							<h3>二手房买卖</h3>
+        							<p>分类描述分类描述分类描述分类描述</p>
+        							<a href="#">立即查看</a>
+        						</div>
+        						<div class="aliyun_li_c">
+        							<div>
+        								<p>二手房买卖</p>
+        								<a href="#">立即查看</a>
+        							</div>
+        							<div>
+        								<p>借名买房</p>
+        								<a href="#">立即查看</a>
+        							</div>
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        			<div class="aliyun_li">
+        				<div class="aliyun_li_top">
+        					<i class="pbg-2017 pbg-2017-a3"></i>
+        					<span>继承纠纷</span>
+        					<p>分类描述分类描述分类描述分类描述</p>
+        				</div>
+        				<div class="aliyun_li_con">
+        					<div class="aliyun_li_o">
+        						<span>房产继承</span>
+        						<span>分家析产</span>
+        					</div>
+        					<div class="aliyun_li_p">
+        						<div class="aliyun_li_t">
+        							<h3>继承纠纷</h3>
+        							<p>分类描述分类描述分类描述分类描述</p>
+        							<a href="#">立即查看</a>
+        						</div>
+        						<div class="aliyun_li_c">
+        							<div>
+        								<p>房产继承</p>
+        								<a href="#">立即查看</a>
+        							</div>
+        							<div>
+        								<p>分家析产</p>
+        								<a href="#">立即查看</a>
+        							</div>
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        			<div class="aliyun_li">
+        				<div class="aliyun_li_top">
+        					<i class="pbg-2017 pbg-2017-a4"></i>
+        					<span>法律顾问</span>
+        					<p>分类描述分类描述分类描述分类描述</p>
+        				</div>
+        				<div class="aliyun_li_con">
+        					<div class="aliyun_li_o">
+        						<span>公司顾问</span>
+        						<span>私人律师</span>
+        					</div>
+        					<div class="aliyun_li_p">
+        						<div class="aliyun_li_t">
+        							<h3>法律顾问</h3>
+        							<p>分类描述分类描述分类描述分类描述</p>
+        							<a href="#">立即查看</a>
+        						</div>
+        						<div class="aliyun_li_c">
+        							<div>
+        								<p>公司顾问</p>
+        								<a href="#">立即查看</a>
+        							</div>
+        							<div>
+        								<p>私人律师</p>
+        								<a href="#">立即查看</a>
+        							</div>
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        			<span class="clear" style="display: block;"></span>
+        		</div>
+        	</div>
+	        <div class="bgb">
+	        	<div class="p2017-bb">
+	        		<div>
+		        		<div style="width: 400px;margin-right: 82px;">
+		        			<h3>房屋买卖纠纷，怎样正确理解定金和违约金?</h3>
+		        			<p>城市化进程加快的今天，很多人都会选择在城市买房。由此也会产生很多纠纷，在房屋买卖时出现的纠纷主要有购房合同纠纷、不能按期交房纠纷、违约纠纷。本文就购买房屋时的相关问题作相应分析。</p>
+		        		</div>
+		        		<div>
+		        			<img src="/images/2017img1.png" style="width: 332px;" />
+		        		</div>
+	        		</div>
+	        		<p>
+	        			<a href="javascript:;" style="border: none;">咨询电话:13581810909</a>
+	        			<a href="javascript:;">留言咨询</a>
+	        		</p>
+	        	</div>
+	        </div>
+        </div>
+        <h2 class="ph2">成功案例</h2>
+        <div class="falv-2017">
+        	<div class="img-bg-1">
+        		<a href="#">
+	        		<i><img src="/images/icon-13-2017.png"></i>
+	        		<h3>对方违约 <br />如何维护权益？</h3>
+	        		<span>立刻查看</span>
+        		</a>
+        	</div>
+        	<div class="img-bg-2">
+        		<a href="#">
+	        		<i><img src="/images/icon-13-2017.png"></i>
+	        		<h3>借名买房<br />如何保证拿到房产？</h3>
+	        		<span>立刻查看</span>
+        		</a>
+        	</div>
+        	<div class="img-bg-3">
+        		<a href="#">
+	        		<i><img src="/images/icon-13-2017.png"></i>
+	        		<h3>亲人离世<br />如何办理房产继承？</h3>
+	        		<span>立刻查看</span>
+        		</a>
+        	</div>
+        	<div class="img-bg-4">
+        		<a href="#">
+	        		<i><img src="/images/icon-13-2017.png"></i>
+	        		<h3>离婚<br />如何分得房产？</h3>
+	        		<span>立刻查看</span>
+        		</a>
+        	</div>
+        	<div class="img-bg-5">
+        		<a href="#">
+	        		<i><img src="/images/icon-13-2017.png"></i>
+	        		<h3>法律事件<br />突发法律事件怎么办？</h3>
+	        		<span>立刻查看</span>
+        		</a>
+        	</div>
+        </div>
+        <h2 class="ph2">资料下载</h2>
+		<div class="new-download">
+			<ul>
+				<li>
+					<span><i class="new-in-icon1"></i></span>
+					<div>
+					 	<h3>法律资料下载专区</h3>
+					 	<p>
+					 		<a href="#" class="ellipsis">私募基金政策法规解读及实操</a>
+					 		<a href="#" class="ellipsis">私募基金管理人备案技巧</a>
+					 		<a href="#" class="ellipsis">私募基金管理人备案登记答疑</a>
+					 		<a href="#" class="ellipsis">私募基金解读及实操</a>
+					 	</p>
+					</div>
+				</li>
+				<li>
+					<span><i class="new-in-icon2"></i></span>
+					<div>
+					 	<h3>法律资料下载专区</h3>
+					 	<p>
+					 		<a href="#" class="ellipsis">私募基金政策法规解读及实操</a>
+					 		<a href="#" class="ellipsis">私募基金管理人备案技巧</a>
+					 		<a href="#" class="ellipsis">私募基金管理人备案登记答疑</a>
+					 		<a href="#" class="ellipsis">私募基金解读及实操</a>
+					 	</p>
+					</div>
+				</li>
+				<li>
+					<span><i class="new-in-icon3"></i></span>
+					<div>
+					 	<h3>法律资料下载专区</h3>
+					 	<p>
+					 		<a href="#" class="ellipsis">私募基金政策法规解读及实操</a>
+					 		<a href="#" class="ellipsis">私募基金管理人备案技巧</a>
+					 		<a href="#" class="ellipsis">私募基金管理人备案登记答疑</a>
+					 		<a href="#" class="ellipsis">私募基金解读及实操</a>
+					 	</p>
+					</div>
+				</li>
+				<li>
+					<span><i class="new-in-icon4"></i></span>
+					<div>
+					 	<h3>法律资料下载专区</h3>
+					 	<p>
+					 		<a href="#" class="ellipsis">私募基金政策法规解读及实操</a>
+					 		<a href="#" class="ellipsis">私募基金管理人备案技巧</a>
+					 		<a href="#" class="ellipsis">私募基金管理人备案登记答疑</a>
+					 		<a href="#" class="ellipsis">私募基金解读及实操</a>
+					 	</p>
+					</div>
+				</li>
+				<li>
+					<span><i class="new-in-icon5"></i></span>
+					<div>
+					 	<h3>法律资料下载专区</h3>
+					 	<p>
+					 		<a href="#" class="ellipsis">私募基金政策法规解读及实操</a>
+					 		<a href="#" class="ellipsis">私募基金管理人备案技巧</a>
+					 		<a href="#" class="ellipsis">私募基金管理人备案登记答疑</a>
+					 		<a href="#" class="ellipsis">私募基金解读及实操</a>
+					 	</p>
+					</div>
+				</li>
+				<li>
+					<span><i class="new-in-icon6"></i></span>
+					<div>
+					 	<h3>法律资料下载专区</h3>
+					 	<p>
+					 		<a href="#" class="ellipsis">私募基金政策法规解读及实操</a>
+					 		<a href="#" class="ellipsis">私募基金管理人备案技巧</a>
+					 		<a href="#" class="ellipsis">私募基金管理人备案登记答疑</a>
+					 		<a href="#" class="ellipsis">私募基金解读及实操</a>
+					 	</p>
+					</div>
+				</li>
+			</ul>
+			<div class="p2017-gg-btn">
+    			<a href="#">查看更多  》</a>
+    		</div>
+		</div>
+		
+        <h2 class="ph2">法律知识</h2>
+        <div class="w1200 p2017-cf">
+        	<div>
+        		<dl>
+        			<dt class="pbg-2017 pbg-2017-b1"></dt>
+        			<dd>
+        				<span>法律相关</span>
+        				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
+        				<div>
+        					<i>2016-09-02</i>
+        					<a href="#">更多>></a>
+        				</div>
+        			</dd>
+        		</dl>
+        		<dl>
+        			<dt class="pbg-2017 pbg-2017-b2"></dt>
+        			<dd>
+        				<span>二手房相关</span>
+        				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
+        				<div>
+        					<i>2016-09-02</i>
+        					<a href="#">更多>></a>
+        				</div>
+        			</dd>
+        		</dl>
+        		<dl>
+        			<dt class="pbg-2017 pbg-2017-b3"></dt>
+        			<dd>
+        				<span>婚姻房产相关</span>
+        				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
+        				<div>
+        					<i>2016-09-02</i>
+        					<a href="#">更多>></a>
+        				</div>
+        			</dd>
+        		</dl>
+        		<dl>
+        			<dt class="pbg-2017 pbg-2017-b4"></dt>
+        			<dd>
+        				<span>借名买房相关</span>
+        				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
+        				<div>
+        					<i>2016-09-02</i>
+        					<a href="#">更多>></a>
+        				</div>
+        			</dd>
+        		</dl>
+        		<dl>
+        			<dt class="pbg-2017 pbg-2017-b5"></dt>
+        			<dd>
+        				<span>继承房产相关</span>
+        				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
+        				<div>
+        					<i>2016-09-02</i>
+        					<a href="#">更多>></a>
+        				</div>
+        			</dd>
+        		</dl>
+        		<dl>
+        			<dt class="pbg-2017 pbg-2017-b6"></dt>
+        			<dd>
+        				<span>分家析产相关</span>
+        				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
+        				<div>
+        					<i>2016-09-02</i>
+        					<a href="#">更多>></a>
+        				</div>
+        			</dd>
+        		</dl>
+        	</div>
+        </div>
+        <img src="/images/banner-1-2017.jpg" style="display: block;margin: 0 auto 50px;">
+        <div class="bgf">
+        	<div class="p2017-g">
+        		<span style="font-size: 20px;font-weight: 700;"><i style="font-size: 20px;">三大优势</i>，满足您成为私募基金管理人的一切需求</span>
+        		<div class="p2017-gg" style="margin-bottom: 50px;">
+        			<div>
+        				<i class="pbg-2017 pbg-2017-g"></i>
+        				<p>
+        					<span>专业</span>
+        					熟悉私募基金管理人登记的全部流程，精确把控每一个环节
+        				</p>
+        			</div>
+        			<div>
+        				<i class="pbg-2017 pbg-2017-h"></i>
+        				<p>
+        					<span>效率</span>
+        					能够快速处理每个环节可能会遇到的问题
+        				</p>
+        			</div>
+        			<div>
+        				<i class="pbg-2017 pbg-2017-i"></i>
+        				<p>
+        					<span>可信赖</span>
+        					信誉和通过率是检验一个律师团队是否值得信赖的最高标准
+        				</p>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+<% include ../layout/footer-right.ejs %>
+		<script>
+				$('.aliyun_li').hover(function(){
+					$(this).siblings('div').removeClass('active');
+					$(this).addClass('active');
+				})
+				$('.p2017-con>div').hover(function(){
+					$(this).children('p').stop().animate({
+						height: '114px'
+					},400)
+					$(this).children('div').stop().animate({
+						top: '250px'
+					},500)
+				},function(){
+					$(this).children('p').stop().animate({
+						height: '0'
+					},400)
+					$(this).children('div').stop().animate({
+						top: '180px'
+					},500)
+				})
+		</script>
+<% include ../layout/footer.ejs %>

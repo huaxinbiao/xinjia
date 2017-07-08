@@ -29,11 +29,11 @@ var navs = [{
 	"children": [{
 		"title": "成功案例设置",
 		"icon": "&#xe609;",
-		"href": "nav.html"
+		"href": "/admin/toplevel/1"
 	}, {
 		"title": "实用信息设置",
 		"icon": "&#xe63c;",
-		"href": "form.html"
+		"href": "/admin/toplevel/2"
 	}]
 },{
 	"title": "下载管理",

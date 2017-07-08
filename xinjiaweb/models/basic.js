@@ -162,7 +162,7 @@ exports.updateOne = function (coll, opation, data, callback){
 
 		var collection = db.collection(coll);
 		
-		collection.updateOne(opation, { $set: data }, function(err, result) {
+		collection.updateOne(opation, { $set: data }, {upsert: true}, function(err, result) {
 			db.close();
 			callback(err, result);
 		});

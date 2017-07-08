@@ -1,0 +1,61 @@
+<div class="footer">
+	<p>
+		<span>友情链接：</span>
+		<a href="">友情链接网</a>
+		<a href="">友情链接网</a>
+		<a href="">友情链接</a>
+		<a href="">友情链接</a>
+		<a href="">友情链接</a>
+	</p>
+	<p>copyriht  2015京ICP备14023616号 京ICP证140543号</p>
+</div>
+<div class="toolbar">
+    <div class="service" style="width: 50px;">
+    	<a target="_blank" href="javascript:;">
+    		<i class="icon"></i>联系电话
+		</a>
+		<div>联系电话：13581810909</div>
+	</div>
+    <div class="wx-right-0626">
+    	<a href="javascript:;">
+    		<i class="icon"></i>微信二维码
+		</a>
+		<div><img src="https://file.youfa365.com/resources/dist/images/icon9.jpg">孟博</div>
+	</div>
+    <div class="cart-right">
+    	<a href="javascript:;">
+    		<i class="icon"></i>预约地址
+		</a>
+		<div>预约地址：预约地址预约地址预约地址</div>
+	</div>
+    <div class="top-right-0626 backtop">
+    	<a href="javascript:;">
+    		<i class="icon"></i>返回顶部
+		</a>
+	</div>
+</div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/layui/lay/dest/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/base.js"></script>
+<script>
+	$(function(){
+		$('.backtop').click(function(){
+		    $('html,body').stop().animate({scrollTop:0},420)
+		})
+		$('.toolbar>div').hover(function(){
+			if(!$(this).hasClass('backtop')){
+				$(this).children('div').show()
+			}
+		    $(this).stop().animate({
+		        width: '138px'
+		    }, 360)
+		},function(){
+			if(!$(this).hasClass('backtop')){
+				$(this).children('div').hide()
+			}
+		    $(this).stop().animate({
+		        width: '50px'
+		    }, 360)
+		})
+	})
+</script>

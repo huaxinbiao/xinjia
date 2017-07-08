@@ -17,8 +17,7 @@ const fs = require('fs');
 const Promise = require('bluebird');
 
 //导入路由
-const TopLevel = require('./admin_m.js');
-router.use('/toplevel', TopLevel);
+router.use('/toplevel', require('./admin_m.js'));
 
 /* GET users listing. */
 //权限控制
@@ -44,7 +43,7 @@ router.all('*', function(req, res, next){
 
 //404
 router.get('/404', function(req, res, next) {
-	res.send('页面访问错误，您访问的内容不存在！');
+	res.send('<h1>页面访问错误，您访问的内容不存在！</h1>');
 });
 
 
