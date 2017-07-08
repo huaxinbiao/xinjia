@@ -2063,9 +2063,6 @@ table th {
   font-size: 16px;
   background: url(../images/more.png) no-repeat right center;
 }
-.in-list-0707 > a.more:hover {
-  color: #0070fc;
-}
 .in-list-0707 .in-list-fl {
   overflow: hidden;
   height: 277px;

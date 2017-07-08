@@ -1,8 +1,6 @@
 <% include ../layout/header.ejs %>
         <div class="banner-nav-2017">
-        	<img src="<% for(i in ification){ %>
-						<% if(ification[i]._id == ification_curr && !!ification[i].ification_banner){ %><%= ification[i].ification_banner %><% }else{ %>/images/banner-2-2017.png<% } %>
-					<% } %>" style="display: block;width: 100%;">
+        	<span style="display: block;height: 396px;width: 100%;min-width: 1200px;background: url(<% for(i in ification){ %><% if(ification[i]._id == ification_curr){ %><% if(!!ification[i].ification_banner){ %><%= ification[i].ification_banner %><% }else{ %>/images/banner-2-2017.png<% } %><% } %><% } %>) no-repeat top center;"></span>
         	<div>
         		<dl>
         			<dt><a href="javascript:;"><img src="/images/logo-2017.png"></a></dt>
@@ -21,71 +19,30 @@
         	<h2>相关分类</h2>
         	<div class="in-list-fl">
         		<ul>
+        			<% ification.forEach(function(item, index){%>
+        			<% if(item._id != ification_curr){ %>
         			<li>
-        				<a href="#">
-        					<img src="/images/banner-2-2017.png">
+        				<a href="/index/list/<%= type %>/<%= item._id %>">
+        					<img src="<%= item.ification_banner %>">
         					<div>
-        						<h3>分类名称</h3>
-        						<p>分类描述分类描述分类描述分类描述</p>
+        						<h3><%= item.title %></h3>
+        						<p><%= item.describe %></p>
         					</div>
         				</a>
         			</li>
-        			<li>
-        				<a href="#">
-        					<img src="/images/banner-2-2017.png">
-        					<div>
-        						<h3>分类名称</h3>
-        						<p>分类描述分类描述分类描述分类描述</p>
-        					</div>
-        				</a>
-        			</li>
-        			<li>
-        				<a href="#">
-        					<img src="/images/banner-2-2017.png">
-        					<div>
-        						<h3>分类名称</h3>
-        						<p>分类描述分类描述分类描述分类描述</p>
-        					</div>
-        				</a>
-        			</li>
-        			<li>
-        				<a href="#">
-        					<img src="/images/banner-2-2017.png">
-        					<div>
-        						<h3>分类名称</h3>
-        						<p>分类描述分类描述分类描述分类描述</p>
-        					</div>
-        				</a>
-        			</li>
-        			<li>
-        				<a href="#">
-        					<img src="/images/banner-2-2017.png">
-        					<div>
-        						<h3>分类名称</h3>
-        						<p>分类描述分类描述分类描述分类描述</p>
-        					</div>
-        				</a>
-        			</li>
-        			<li>
-        				<a href="#">
-        					<img src="/images/banner-2-2017.png">
-        					<div>
-        						<h3>分类名称</h3>
-        						<p>分类描述分类描述分类描述分类描述</p>
-        					</div>
-        				</a>
-        			</li>
+        			<% } %>
+		            <% }) %>
         		</ul>
         	</div>
         	<a href="javascript:;" class="more">查看更多</a>
         </div>
         <div class="in-list-0707">
-        	<h2>分类名称</h2>
+        	<h2 id="top-a"><% var t=1; for(i in ification){ %><% if(ification[i]._id == ification_curr){ %><%= ification[i].title %><% t=0 %><% } %><% } %><% if(t==1){ %>分类不存在，查看其他分类<% } %></h2>
         	<div class="in-list-wz">
         		<div class="left">
         			<div class="nav-top">
-        				<a href="#" class="cur">成功案例</a>
-        				<a href="#">实用信息</a>
+        				<a href="/index/list/<%= type %>/<%= ification_curr %>?label=1#top-a" <% if(label==1){ %>class="cur"<%}%>>成功案例</a>
+        				<a href="/index/list/<%= type %>/<%= ification_curr %>?label=2#top-a" <% if(label==2){ %>class="cur"<%}%>>实用信息</a>
         			</div>
         			<div class="about-cen">
         				<h2>关于信嘉 ABOUT FAITH</h2>
@@ -98,28 +55,20 @@
         			</div>
         		</div>
         		<div class="right">
-        			<ul>
-        				<li>
-        					<h3><a href="#"><span>[成功案例］</span>名为房屋买卖实为借款担保的认定</a></h3>
-        					<p>2013年年底收房时发现，新房与《 商品房买卖合同 》户型图不符，原本室内家政间从9平方米缩小到了5平方米，李女士当场拒绝收房</p>
-        				</li>
-        				<li>
-        					<h3><a href="#"><span>[成功案例］</span>名为房屋买卖实为借款担保的认定</a></h3>
-        					<p>2013年年底收房时发现，新房与《 商品房买卖合同 》户型图不符，原本室内家政间从9平方米缩小到了5平方米，李女士当场拒绝收房</p>
-        				</li>
-        				<li>
-        					<h3><a href="#"><span>[成功案例］</span>名为房屋买卖实为借款担保的认定</a></h3>
-        					<p>2013年年底收房时发现，新房与《 商品房买卖合同 》户型图不符，原本室内家政间从9平方米缩小到了5平方米，李女士当场拒绝收房</p>
-        				</li>
-        				<li>
-        					<h3><a href="#"><span>[成功案例］</span>名为房屋买卖实为借款担保的认定</a></h3>
-        					<p>2013年年底收房时发现，新房与《 商品房买卖合同 》户型图不符，原本室内家政间从9平方米缩小到了5平方米，李女士当场拒绝收房</p>
-        				</li>
-        				<li>
-        					<h3><a href="#"><span>[成功案例］</span>名为房屋买卖实为借款担保的认定</a></h3>
-        					<p>2013年年底收房时发现，新房与《 商品房买卖合同 》户型图不符，原本室内家政间从9平方米缩小到了5平方米，李女士当场拒绝收房</p>
-        				</li>
+        			<ul style="min-height: 500px;margin-bottom: 30px;">
+    				<% if(article.length < 1){ %>
+    					<li><h3>暂无文章</h3></li>
+    				<% }else{ %>
+	    				<% article.forEach(function(item, index){ %>
+	    				<li>
+	    					<h3><a href="#"><span>[<% if(item.label == 1){ %>成功案例<% }else{ %>实用信息<% } %>］</span><%= item.title %></a></h3>
+	    					<p><%= item.briefing %></p>
+	    				</li>
+	    				<% }) %>
+    				<% } %>
         			</ul>
+					<div id="paged" class="page">
+					</div>
         		</div>
         	</div>
         </div>
@@ -127,6 +76,32 @@
         
 <% include ../layout/footer-right.ejs %>
 <script>
-	
+	$('.more').click(function(){
+		if($(this).hasClass('cur')){
+			$(this).prev('div').height('277px');
+			$(this).removeClass('cur');
+			$(this).text('查看更多');
+		}else{
+			$(this).prev('div').height('auto');
+			$(this).addClass('cur');
+			$(this).text('点击收起');
+		}
+	})
+					
+	laypage({
+	    cont: 'paged'
+	    ,pages: <%= page %>
+	    ,curr: <%= curr %>
+	    ,first: 1
+	    ,last: <%= page %>
+	    ,prev: '<em><</em>'
+	    ,next: '<em>></em>'
+	    ,jump: function(obj, first){
+	    	var curr = obj.curr;
+	    	if(!first){
+	    		location.href = '/index/list/<%= type %>/<%= ification_curr %>/?<% if(label){ %>label=<%= label %>&<%}%>page='+curr+'#top-a'
+	    	}
+	    }
+	});
 </script>
 <% include ../layout/footer.ejs %>

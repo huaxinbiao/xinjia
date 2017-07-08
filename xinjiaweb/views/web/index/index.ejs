@@ -19,7 +19,7 @@
         	<ul>
         		<% for(i in ification){ %>
         		<li>
-        			<a href="#" title="<%= ification[i].describe %>">
+        			<a href="/index/list/1/<%= ification[i]._id %>" title="<%= ification[i].describe %>">
         				<h2><%= ification[i].title %></h2>
         				<span class="layui-elip"><%= ification[i].describe %></span>
         			</a>
