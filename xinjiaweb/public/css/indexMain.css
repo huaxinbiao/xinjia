@@ -2205,3 +2205,55 @@ table th {
   line-height: 22px;
   color: #666;
 }
+.ification-list {
+  width: 1200px;
+  margin: 20px auto 50px;
+  min-height: 500px;
+  overflow: hidden;
+}
+.ification-list > div {
+  width: 350px;
+  height: 373px;
+  float: left;
+  margin: 20px 23px;
+  border: #eee 1px solid;
+  box-shadow: #eee 3px 3px 5px;
+  border-radius: 3px;
+}
+.ification-list > div > h2 {
+  font-size: 18px;
+  line-height: 30px;
+  border-bottom: #eee 1px solid;
+  padding: 10px;
+}
+.ification-list > div > h2 a {
+  display: inline-block;
+  float: right;
+}
+.ification-list > div > h2 a:hover {
+  color: #0070fc;
+}
+.ification-list > div > div {
+  padding: 10px;
+}
+.ification-list > div > div a {
+  display: block;
+  overflow: hidden;
+  line-height: 30px;
+  height: 30px;
+}
+.ification-list > div > div a i {
+  font-size: 12px;
+  color: #999;
+  display: inline-block;
+  margin-right: 5px;
+}
+.ification-list > div > div a span {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: right;
+}
+.ification-list > div > div a:hover {
+  color: #0070fc;
+}

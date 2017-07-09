@@ -39,3 +39,49 @@ exports.find = function (coll, opation, screem={}, page, strip, callback=functio
         });
 	});
 }
+
+
+/**
+ * 分页查询
+ * @method findPage
+ * @param {String} mongoConnectUrl 数据库连接
+ * @param {String} coll 集合名称
+ * @param {Object} opation 条件
+ * @param {Object} screem 返回那些字段
+ * @param {Object} page 请求页数
+ * @param {Object} strip 返回条数
+ * @param {Function} callback 回调函数
+ * @return {Null}
+ *
+ */
+/*exports.findData = function (coll, opation, screem={}, page, strip, callback=function(){}){
+	MongoClient.connect(mongoConnectUrl, function(err, db){
+		if(err) return console.log(err);
+		// 打开集合
+		var collection = db.collection(coll).aggregate([{
+				$match: opation
+            },{
+            	$sort: {time: -1}
+            },{
+            	$group: {
+            		_id: {"ification_id": true},
+				  	initial: {"person": []},
+				  	reduce: function(cur, prev) {
+					    prev.person.push({title: cur.title});
+				  	}
+            	}
+            },{
+              	$limit: strip
+            },{
+              	$skip: (page - 1)*strip
+            }], function(err, docs) {
+            	//注意，这里的sort操作要放在group前面进行
+            	console.log(err)
+				db.close();
+		        if(err) {
+		            return callback(err);
+		        }
+		        callback(null, docs);
+    		});
+	});
+}*/

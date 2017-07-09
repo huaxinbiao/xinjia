@@ -1,18 +1,7 @@
 <% include ../layout/header.ejs %>
         <div class="banner-nav-2017">
         	<span style="display: block;height: 396px;width: 100%;min-width: 1200px;background: url(<% for(i in ification){ %><% if(ification[i]._id == ification_curr){ %><% if(!!ification[i].ification_banner){ %><%= ification[i].ification_banner %><% }else{ %>/images/banner-2-2017.png<% } %><% } %><% } %>) no-repeat top center;"></span>
-        	<div>
-        		<dl>
-        			<dt><a href="javascript:;"><img src="/images/logo-2017.png"></a></dt>
-        			<dd>
-        				<a href="#" class="active">首页</a>
-        				<a href="#">关于我们</a>
-        				<a href="#">成功案例</a>
-        				<a href="#">实用信息</a>
-        				<span>13581810909</span>
-        			</dd>
-        		</dl>
-        	</div>
+        	<% include ../layout/nav.ejs %>
         </div>
         
         <div class="in-list-0707">
