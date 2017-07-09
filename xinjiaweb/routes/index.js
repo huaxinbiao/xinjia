@@ -125,6 +125,13 @@ router.get('/index/ification/:type', function(req, res, next) {
 			for(let key in result) {
 				objId.push(result[key]._id.toString());
 			}
+			Page.findData('articlecollection', {
+				ification_id: {
+					"$in": objId
+				}
+			}, {}, 1, 1, function(err1, result1) {
+				
+			})
 			//查找文章
 			Basic.findData('articlecollection', {
 				ification_id: {

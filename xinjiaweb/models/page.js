@@ -54,7 +54,7 @@ exports.find = function (coll, opation, screem={}, page, strip, callback=functio
  * @return {Null}
  *
  */
-/*exports.findData = function (coll, opation, screem={}, page, strip, callback=function(){}){
+exports.findData = function (coll, opation, screem={}, page, strip, callback=function(){}){
 	MongoClient.connect(mongoConnectUrl, function(err, db){
 		if(err) return console.log(err);
 		// 打开集合
@@ -64,24 +64,21 @@ exports.find = function (coll, opation, screem={}, page, strip, callback=functio
             	$sort: {time: -1}
             },{
             	$group: {
-            		_id: {"ification_id": true},
-				  	initial: {"person": []},
-				  	reduce: function(cur, prev) {
-					    prev.person.push({title: cur.title});
-				  	}
+            		_id:"$ification_id",
+            		count: {$sum:1}
             	}
             },{
-              	$limit: strip
+              	$limit: 5
             },{
               	$skip: (page - 1)*strip
             }], function(err, docs) {
             	//注意，这里的sort操作要放在group前面进行
-            	console.log(err)
 				db.close();
+            	//console.log(docs)
 		        if(err) {
 		            return callback(err);
 		        }
 		        callback(null, docs);
     		});
 	});
-}*/
+}
