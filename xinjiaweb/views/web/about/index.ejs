@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title><%= title %></title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    	<link rel="shortcut icon" href="/images/favicon.ico">
+		<meta name="keywords" content="<% if(article.keywords){%><%= article.keywords %><% }else{ %>信嘉法律，法律<% } %>" />
+		<meta name="description" content="<%= article.briefing %>" />
+		<!--所有页面加载-->
+		<link rel="stylesheet" type="text/css" href="/js/layui/css/layui.css"/>
+		<link rel="stylesheet" href="/css/indexMain.css">
+	</head>
+    <body>
+        <div class="banner-nav-2017">
+        	<img src="/images/banner-2-2017.png">
+        	<% include ../layout/nav.ejs %>
+        </div>
+        
+        <div class="f5-body" style="min-width: 1200px;">
+			<!--面包屑-->
+			<div class="w1200 crumbs">
+				<a href="/">首页</a><i>/</i><span>关于我们</span>
+			</div>
+			<div class="w1200">
+				<div class="floatLeft article">
+					<h2><%= article.title %></h2>
+					<p><%= formatDateTime(article.time) %>&nbsp;&nbsp;&nbsp;&nbsp;<%= article.author %>&nbsp;&nbsp; </p>
+					<div class="box" style="min-height: 500px;">
+						<%- article.content %>
+					</div>
+					<div class="bdsharebuttonbox" style="margin-top: 20px;"><a href="javascript:;" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a></div>
+					<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+				</div>
+				<div class="floatLeft">
+					<div class="new-article article-list-right">
+					    <h3>推荐文章</h3>
+					    <div class="tab-box">
+					        <div>
+					            <ul>
+					            	<% docs.forEach(function(item, index){ %>
+			                        <li>
+			                            <a href="/index/article/<%= item.article_id %>"><%= item.title %></a>
+			                            <p><%= item.briefing %></p>
+			                        </li>
+			                        <% }) %>
+					            </ul>
+					        </div>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+        
+<% include ../layout/footer-right.ejs %>
+<script>
+	
+</script>
+<% include ../layout/footer.ejs %>

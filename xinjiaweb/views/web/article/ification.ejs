@@ -11,7 +11,7 @@
         		<div>
         			<% article.forEach(function(item1, index1){ %>
     				<% if(item1.ification_id == item._id && count < 10){ count++ %>
-        			<a href="#" class="layui-elip"><i>[<%= item1.label==1?'成功案例':'实用信息' %>]</i><%= item1.title %> </a>
+        			<a href="/index/article/<%= item1.article_id %>" class="layui-elip"><i>[<%= item1.label==1?'成功案例':'实用信息' %>]</i><%= item1.title %> </a>
         			<% } %>
         			<% }) %>
         		</div>

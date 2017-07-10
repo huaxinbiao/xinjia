@@ -50,7 +50,7 @@
     				<% }else{ %>
 	    				<% article.forEach(function(item, index){ %>
 	    				<li>
-	    					<h3><a href="#"><span>[<% if(item.label == 1){ %>成功案例<% }else{ %>实用信息<% } %>］</span><%= item.title %></a></h3>
+	    					<h3><a href="/index/article/<%= item.article_id %>"><span>[<% if(item.label == 1){ %>成功案例<% }else{ %>实用信息<% } %>］</span><%= item.title %></a></h3>
 	    					<p><%= item.briefing %></p>
 	    				</li>
 	    				<% }) %>

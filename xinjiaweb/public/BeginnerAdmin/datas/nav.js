@@ -48,6 +48,11 @@ var navs = [{
 		"href": "form.html"
 	}]
 },{
+	"title": "网站留言",
+	"icon": "fa-cubes",
+	"href": "/admin/messages/index"
+},{
 	"title": "关于我们",
-	"icon": "fa-cubes"
+	"icon": "fa-cubes",
+	"href": "/admin/about"
 }];

@@ -28,7 +28,7 @@ router.get('/:index', function(req, res, next){
 			res.render('admin/toplevel/index', {
 				bodyclass: null,
 				result: result,
-				toplevel: result1.ification?result1.ification:[],
+				toplevel: result1&&result1.ification?result1.ification:[],
 				type: req.params.index
 			});
 		})
@@ -74,6 +74,10 @@ router.post('/', function(req, res, next){
 		});
 	})
 })
+
+
+
+
 
 
 

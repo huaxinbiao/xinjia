@@ -1,0 +1,115 @@
+﻿<% include ../layout/header.ejs %>
+		<link rel="stylesheet" href="/BeginnerAdmin/css/table.css" />
+		<div class="admin-main">
+			<a href="javascript:;" onclick="location.reload()" class="layui-btn layui-btn-small">刷新</a>
+			<blockquote class="layui-elem-quote">
+				<form class="layui-form" action="">
+					<div class="layui-form-item">
+						<label class="layui-form-label">网站留言</label>
+						<div class="layui-input-inline">
+							<select name="type" lay-verify="required">
+								<option value="index" <% if(type == 'index'){ %>selected="selected"<% } %>>全部</option>
+								<option value="1" <% if(type == 1){ %>selected="selected"<% } %>>未处理</option>
+								<option value="2" <% if(type == 2){ %>selected="selected"<% } %>>已处理</option>
+							</select>
+						</div>
+						<button lay-submit="" class="layui-btn layui-btn-small" id="search" lay-filter="search" style="margin-top: 4px;">
+							<i class="layui-icon">&#xe615;</i> 搜索
+						</button>
+					</div>
+				</form>
+			</blockquote>
+			<fieldset class="layui-elem-field">
+				<legend>留言列表</legend>
+				<div class="layui-field-box layui-form">
+					<table class="layui-table admin-table">
+						<thead>
+							<tr>
+								<th style="width: 120px;">联系人</th>
+								<th style="width: 150px;">联系方式</th>
+								<th>留言内容</th>
+								<th style="width: 120px;">留言时间</th>
+								<th style="width: 80px;">操作</th>
+							</tr>
+						</thead>
+						<tbody id="content">
+							<% if(result.length < 1){ %>
+								<tr><th colspan="6">暂无数据</th></tr>
+							<% }else{ %>
+								<% result.forEach(function(item, index){ %>
+									<tr>
+										<td><%= item.name %></td>
+										<td><%= item.tel %></td>
+										<td><%= item.content %></td>
+										<td><%= formatDateTime(item.time, 1) %></td>
+										<td>
+											<% if(item.type == 0){ %>
+											<a href="javascript:;" data-id="<%= item._id %>" class="layui-btn layui-btn-mini edit">标记处理</a>
+											<% }else{%>
+											<a href="javascript:;" data-id="<%= item._id %>" class="layui-btn layui-btn-danger layui-btn-mini">已处理</a>
+											<% } %>
+										</td>
+									</tr>
+								<% }) %>
+							<% } %>
+						</tbody>
+					</table>
+				</div>
+			</fieldset>
+			<div class="admin-table-page">
+				<div id="paged" class="page">
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="/BeginnerAdmin/plugins/layui/layui.js"></script>
+		<script>
+			layui.use(['laypage', 'form'], function() {
+				var $ = layui.jquery,
+					layer = layui.layer, //获取当前窗口的layer对象
+					form = layui.form(),
+					laypage = layui.laypage;
+					
+					laypage({
+					    cont: 'paged'
+					    ,pages: <%= page %>
+					    ,curr: <%= curr %>
+					    ,first: 1
+					    ,last: <%= page %>
+					    ,prev: '<em><</em>'
+					    ,next: '<em>></em>'
+					    ,jump: function(obj, first){
+					    	var curr = obj.curr;
+					    	if(!first){
+					    		location.href = '/admin/messages/<%= type %>?page='+curr
+					    	}
+					    }
+					});
+					
+					//监听提交
+					form.on('submit(search)', function(data) {
+						location.href = "/admin/messages/"+data.field.type;
+						return false;
+					});
+				
+					$('.edit').click(function(){
+						var self = $(this);
+						var id = $(this).attr('data-id');
+						layer.alert('你确认标记成处理？',function(index){
+							$.post('/admin/messages', {id: id}, function(res){
+								layer.close(index);
+								if(res.code == 200){
+									location.reload();
+								}else{
+									layer.msg(res.msg);
+								}
+							})
+						})
+					})
+			});
+			function reload(info){
+				location.reload();
+			}
+		</script>
+	</body>
+
+</html>

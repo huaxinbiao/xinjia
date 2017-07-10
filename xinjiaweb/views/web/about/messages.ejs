@@ -1,0 +1,63 @@
+<% include ../layout/header.ejs %>
+<div style="padding: 30px 50px 0 0;">
+	<form class="layui-form" action="">
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">联系人</label>
+	    <div class="layui-input-block">
+	      <input type="text" name="name" required  lay-verify="required" placeholder="请输入联系人名称" autocomplete="off" class="layui-input">
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">联系方式</label>
+	    <div class="layui-input-block">
+	      <input type="text" name="tel" required  lay-verify="required" placeholder="请输入电话或邮箱" autocomplete="off" class="layui-input">
+	    </div>
+	  </div>
+	  <div class="layui-form-item layui-form-text">
+	    <label class="layui-form-label">咨询问题</label>
+	    <div class="layui-input-block">
+	      <textarea name="content" placeholder="请输入您想咨询的问题" class="layui-textarea" lay-verify="required"></textarea>
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <div class="layui-input-block">
+	      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+	    </div>
+	  </div>
+	</form>
+</div>
+        
+
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/layui/lay/dest/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/base.js"></script>
+<script>
+	//监听提交
+	form.on('submit(formDemo)', function(data) {
+		if(data.field.name.length>6){
+			layer.msg('联系人输入不正确');
+			return false;
+		}
+		if(data.field.tel.length>100){
+			layer.msg('联系方式输入不正确');
+			return false;
+		}
+		if(data.field.content.length>600){
+			layer.msg('咨询问题输入过长')
+			return false;
+		}
+		$.post('/index/messages', data.field, function(res){
+			if(res.code == 200){
+				$('input').val('');
+				layer.msg(res.msg, function(){
+					var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+					parent.layer.close(index); //再执行关闭   
+				})
+			}else{
+				layer.msg(res.msg)
+			}
+		})
+		return false;
+	});
+</script>
+<% include ../layout/footer.ejs %>

@@ -603,7 +603,7 @@ router.get('/article/editarticle', function(req, res, next) {
 				_id: ObjectID(result[0].article_id)
 			};
 			var screem = {};
-			console.log(result[0].collection)
+			//console.log(result[0].collection)
 			Basic.findOne(AdmincConst.SOLPREFIX + result[0].collection, opation, screem, function(err2, result2){
 				if(err2||!result2){
 					return res.redirect('/admin/404');
@@ -719,6 +719,111 @@ router.post('/article/editarticle', function(req, res, next) {
 	})
 })
 
+
+
+
+//网站留言
+router.get('/messages/:type', function(req, res, next){
+	var page = req.query.page ? req.query.page : '1';
+	var type = req.params.type;
+	if(type!='index' && type!=1 && type!=2){
+		return res.redirect('/admin/404');
+	}
+	var opation = {}
+	if(type != 'index'){
+		if(type==1){
+			opation.type = 0;
+		}else{
+			opation.type = 1;
+		}
+	}
+	var strip = 20;
+	Page.find('messages', opation, {}, page, strip, function(err, docs, total){
+		if(err){
+			return res.redirect('/admin/404');
+		}
+		res.render('admin/about/msg', {
+			bodyclass: null,
+			result: docs,
+			type: type,
+			page: total/strip,
+			curr: page,
+			formatDateTime: Function.formatDateTime
+		});
+	})
+})
+router.post('/messages', function(req, res, next){
+	//分类下不存在文章，逻辑删除分类；
+	Basic.updateOne('messages', {_id: ObjectID(req.body.id)}, {type: 1}, function(err1, result1){
+		if(err1){
+			return res.json({
+				code: 101,
+				msg: '处理失败'
+			});
+		}
+		res.status(200);
+    	return res.json({
+			code: 200,
+			msg: '处理成功'
+		});
+	})
+})
+
+
+
+
+//关于我们
+router.get('/about', function(req, res, next){
+	var opation = {
+		type: 1
+	}
+	Basic.findOne('about', opation, {}, function(err, result){
+		if(err){
+			return res.redirect('/admin/404');
+		}
+		res.render('admin/about/index', {
+			bodyclass: null,
+			result: result ? result : {}
+		});
+	})
+});
+router.post('/about', function(req, res, next){
+	//修改关于我们
+	/*
+	 * title，文章标题
+	 * briefing，文章简介
+	 * author，文章作者
+	 * content，文章内容
+	 * time，文章添加时间
+	 * keywords，页面关键字
+	 */
+	var opation = {}
+	if(req.body.type){
+		opation.type = parseInt(req.body.type);
+	}
+	var data = {
+		title: req.body.title,
+		briefing: req.body.briefing,
+		author: req.body.author,
+		keywords: req.body.keywords,
+		content: req.body.content,
+		type: 1,
+		time: new Date().getTime().toString()
+	}
+	Basic.updateOne('about', opation, data, function(err, result){
+		if(err){
+			return res.json({
+				code: 101,
+				msg: '修改失败'
+			});
+		}
+		res.status(200);
+    	return res.json({
+			code: 200,
+			msg: '修改成功'
+		});
+	})
+})
 
 
 
@@ -839,5 +944,10 @@ router.post('/upload', function(req, res) {
 	  	console.log('path: ' + req.file.path);*/
   	});
 });
+
+
+
+
+
 
 module.exports = router;
