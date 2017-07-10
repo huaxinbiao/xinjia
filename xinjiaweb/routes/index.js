@@ -133,31 +133,59 @@ router.get('/index/ification/:type', function(req, res, next) {
 			for(let key in result) {
 				objId.push(result[key]._id.toString());
 			}
-			Page.findData('articlecollection', {
-				ification_id: {
-					"$in": objId
+//			Page.findData('articlecollection', {
+//				ification_id: {
+//					"$in": objId
+//				}
+//			}, {}, 1, 1, function(err1, result1) {
+//				
+//			})
+			if(objId.length<200){
+				var docs = [];
+				var findOne = function(i){
+					Page.find('articlecollection', {
+						ification_id: objId[i]
+					}, {}, 1, 10, function(error, doc) {
+						if(error) {
+							return res.redirect('/404');
+						}
+						if(i>=objId.length){
+							//获取分类下的文章
+							//console.log(docs)
+							res.render('web/article/ification', {
+								title: '信嘉法律房产咨询',
+								selected: req.params.type,
+								type: req.params.type,
+								ification: result,
+								article: docs
+							});
+						}else{
+							docs = [...docs, ...doc];
+							findOne(++i);
+						}
+					})
 				}
-			}, {}, 1, 1, function(err1, result1) {
-				
-			})
-			//查找文章
-			Basic.findData('articlecollection', {
-				ification_id: {
-					"$in": objId
-				}
-			}, {}, function(err1, result1) {
-				if(err1) {
-					return res.redirect('/404');
-				}
-				//获取分类下的文章
-				res.render('web/article/ification', {
-					title: '信嘉法律房产咨询',
-					selected: req.params.type,
-					type: req.params.type,
-					ification: result,
-					article: result1
-				});
-			})
+				findOne(0);
+			}else{
+				//查找文章
+				Basic.findData('articlecollection', {
+					ification_id: {
+						"$in": objId
+					}
+				}, {}, function(err1, result1) {
+					if(err1) {
+						return res.redirect('/404');
+					}
+					//获取分类下的文章
+					res.render('web/article/ification', {
+						title: '信嘉法律房产咨询',
+						selected: req.params.type,
+						type: req.params.type,
+						ification: result,
+						article: result1
+					});
+				})
+			}
 		})
 		
 	}

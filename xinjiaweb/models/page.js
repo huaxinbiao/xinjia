@@ -65,12 +65,11 @@ exports.findData = function (coll, opation, screem={}, page, strip, callback=fun
             },{
             	$group: {
             		_id:"$ification_id",
-            		initial:{
-            			num: '0'
-            		},
-					$reduce:function(doc, prev){
-						prev.num = '100'
-					}
+            		gg: {
+            			$push: {
+            				title: "title"
+            			}
+            		}
             	}
             },{
               	$limit: 5

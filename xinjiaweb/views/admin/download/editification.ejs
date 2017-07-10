@@ -1,0 +1,89 @@
+<% include ../layout/header.ejs %>
+		<div style="margin: 15px;">
+			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+				<legend>添加分类</legend>
+			</fieldset>
+
+			<form class="layui-form" action="">
+				<div class="layui-form-item">
+					<label class="layui-form-label">分类名称</label>
+					<div class="layui-input-block">
+						<input type="text" value="<%= result.title %>" name="title" lay-verify="title" autocomplete="off" placeholder="请输入" class="layui-input">
+						<input type="hidden" name="ification_id" value="<%= result._id %>">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">分类描述</label>
+					<div class="layui-input-block">
+						<input type="text" value="<%= result.describe %>" name="describe" lay-verify="title" placeholder="请输入" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">分类图片</label>
+					<div class="layui-input-block">
+						<input type="file" name="ification_img" class="layui-upload-file">
+						<img src="<%= result.ification_banner %>" id="orihead" style="max-width: 200px;">
+						<input type="hidden" id="orihead-input" value="<%= result.ification_banner %>" name="ification_banner" />
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<script type="text/javascript" src="/BeginnerAdmin/plugins/layui/layui.js"></script>
+		<script>
+			layui.use(['form', 'layedit', 'laydate', 'upload', 'layer', 'jquery'], function() {
+				var form = layui.form(),
+					layer = layui.layer,
+					$ = layui.jquery,
+					layedit = layui.layedit,
+					laydate = layui.laydate;
+
+				//自定义验证规则
+				form.verify({
+					title: function(value) {
+						if(value.length > 100 || value.length <= 0) {
+							return '输入字数不正确';
+						}
+					}
+				});
+
+				var t_fun = false;
+				//监听提交
+				form.on('submit(demo1)', function(data) {
+					if(t_fun){
+						return false;
+					}
+					t_fun = true;
+					$.post('/admin/download/editification', data.field, function(res){
+						if(res.code == 200){
+							layer.msg('修改成功', function(){
+								var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+								parent.layer.close(index); //再执行关闭 
+							});
+							parent.reload(res.code)
+						}else{
+							layer.msg(res.msg);
+							t_fun = false;
+						}
+					})
+					return false;
+				});
+				layui.upload({
+				  	url: '/admin/upload?type=ification_img'
+				  	,success: function(res){
+				  		if(res.code == 200){
+				  			$('#orihead').attr('src', res.data.orihead);
+				  			$('#orihead-input').val(res.data.orihead);
+				  			layer.msg('上传成功');
+				  		}else{
+				  			layer.msg(res.msg)
+				  		}
+				  	}
+				});     
+			});
+		</script>
+<% include ../layout/footer.ejs %>

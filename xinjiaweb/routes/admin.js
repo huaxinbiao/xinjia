@@ -18,6 +18,7 @@ const Promise = require('bluebird');
 
 //导入路由
 router.use('/toplevel', require('./admin_m.js'));
+router.use('/download', require('./download.js'));
 
 /* GET users listing. */
 //权限控制
@@ -837,7 +838,7 @@ router.post('/upload', function(req, res) {
 			msg: '请先登录'
 		});
 	}
-	var Route_type = ['ification_img', 'file'];
+	var Route_type = ['ification_img', 'file', 'download'];
 	var type = req.query.type;
 	if(!type || Route_type.indexOf(type) == -1){
 		return res.json({
@@ -858,26 +859,73 @@ router.post('/upload', function(req, res) {
 				msg: '文件不存在'
 			});
 	  	}
-	  	//后缀名
-	  	var extName = ''; 
-	    switch (req.file.mimetype) {
-	        case 'image/pjpeg':
-	            extName = 'jpg';
-	            break;
-	        case 'image/jpeg':
-	            extName = 'jpg';
-	            break;
-	        case 'image/png':
-	            extName = 'png';
-	            break;
-	        case 'image/x-png':
-	            extName = 'png';
-	            break;
-	    }
+	  	if(type == 'download'){
+		  	//文件后缀名
+		  	var extName = ''; 
+		  	var filetype = [
+		  		'image/pjpeg',
+		  		'image/jpeg',
+		  		'image/png',
+		  		'image/x-png',
+		  		'application/pdf',
+		  		'application/vnd.ms-word',
+		  		'application/vnd.ms-powerpoint',
+		  		'application/xml',
+		  		'vnd.ms-excel',
+		  		'application/zip',
+		  		'applicapplication/x-rar',
+		  		'application/kswps',
+				'application/kset',
+				'application/ksdps',
+		  		'application/msword',
+				'application/vnd.ms-excel',
+				'application/vnd.ms-powerpoint',
+				'application/vnd.ms-word.document.macroEnabled.12',
+				'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+				'application/vnd.ms-word.template.macroEnabled.12',
+				'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
+				'application/vnd.ms-powerpoint.template.macroEnabled.12',
+				'application/vnd.openxmlformats-officedocument.presentationml.template',
+				'application/vnd.ms-powerpoint.addin.macroEnabled.12',
+				'application/vnd.ms-powerpoint.slideshow.macroEnabled.12',
+				'application/vnd.openxmlformats-officedocument.presentationml.slideshow',
+				'application/vnd.ms-powerpoint.presentation.macroEnabled.12',
+				'application/vnd.ms-powerpoint.presentation.macroEnabled.12',
+				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+				'application/vnd.ms-excel.addin.macroEnabled.12',
+				'application/vnd.ms-excel.sheet.binary.macroEnabled.12',
+				'application/vnd.ms-excel.sheet.binary.macroEnabled.12',
+				'application/vnd.ms-excel.sheet.macroEnabled.12',
+				'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+				'application/vnd.ms-excel.template.macroEnabled.12',
+				'application/vnd.openxmlformats-officedocument.spreadsheetml',
+				'application/vnd.ms-xpsdocument'
+		  	]
+		  	if(filetype.indexOf(req.file.mimetype) > -1){
+		  		extName = 'download';
+		  	}
+	  	}else{
+		  	//后缀名
+		  	var extName = ''; 
+		    switch (req.file.mimetype) {
+		        case 'image/pjpeg':
+		            extName = 'jpg';
+		            break;
+		        case 'image/jpeg':
+		            extName = 'jpg';
+		            break;
+		        case 'image/png':
+		            extName = 'png';
+		            break;
+		        case 'image/x-png':
+		            extName = 'png';
+		            break;
+		    }
+	  	}
 	    if (extName.length === 0) {
 	    	return res.json({
 				code: 101,
-				msg: '图片格式不正确'
+				msg: '文件格式不正确'
 			});
 	    }
 		//新建文件夹
@@ -888,14 +936,17 @@ router.post('/upload', function(req, res) {
 		        fs.mkdirSync(dirName);
 		    }
 		};
-		
-		var uploadFolder = './uploads/ification/';
 		if(type == 'file'){
 			createFolder('./uploads/article/');
 			var d = new Date();
 			var str = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
 			uploadFolder = './uploads/article/'+str+'/';
 			//console.log(uploadFolder);
+		}else if(type == 'download'){
+			createFolder('./uploads/download/');
+			var d = new Date();
+			var str = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+			uploadFolder = './uploads/download/'+str+'/';
 		}
 		createFolder(uploadFolder)
 		// 移动文件

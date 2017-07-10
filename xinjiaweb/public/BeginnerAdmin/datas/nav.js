@@ -41,11 +41,11 @@ var navs = [{
 	"children": [{
 		"title": "下载分类",
 		"icon": "&#xe609;",
-		"href": "nav.html"
+		"href": "/admin/download/listification"
 	}, {
 		"title": "文件列表",
 		"icon": "&#xe64c;",
-		"href": "form.html"
+		"href": "/admin/download/addfile"
 	}]
 },{
 	"title": "网站留言",

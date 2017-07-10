@@ -1,7 +1,11 @@
 //时间戳转日期
 exports.formatDateTime = function(inputTime, type){
-	inputTime = parseInt(inputTime);
-	var date = new Date(inputTime);
+	if(inputTime){
+		inputTime = parseInt(inputTime);
+		var date = new Date(inputTime);
+	}else{
+		var date = new Date();
+	}
     var y = date.getFullYear();
     var m = date.getMonth() + 1;    
     m = m < 10 ? ('0' + m) : m;    
