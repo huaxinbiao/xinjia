@@ -204,86 +204,31 @@
         		</a>
         	</div>
         </div>
+        <% if(download_ification){ %>
         <h2 class="ph2">资料下载</h2>
 		<div class="new-download">
 			<ul>
+	        	<% download_ification.forEach(function(item, index){ %>
 				<li>
-					<span><i class="new-in-icon1"></i></span>
+					<span><i class="new-in-icon<%= index+1 %>"></i></span>
 					<div>
-					 	<h3>法律资料下载专区</h3>
+					 	<h3><%= item.title %></h3>
 					 	<p>
-					 		<a href="#" class="ellipsis">私募基金政策法规解读及实操</a>
-					 		<a href="#" class="ellipsis">私募基金管理人备案技巧</a>
-					 		<a href="#" class="ellipsis">私募基金管理人备案登记答疑</a>
-					 		<a href="#" class="ellipsis">私募基金解读及实操</a>
+	        				<% download.forEach(function(item1, index1){ %>
+	        				<% if(item._id == item1.ification){ %>	
+					 		<a href="<%= item1.file_src %>" target="_blank" class="ellipsis"><%= item1.title %></a>
+        					<% } %>
+	            			<% }) %>
 					 	</p>
 					</div>
 				</li>
-				<li>
-					<span><i class="new-in-icon2"></i></span>
-					<div>
-					 	<h3>法律资料下载专区</h3>
-					 	<p>
-					 		<a href="#" class="ellipsis">私募基金政策法规解读及实操</a>
-					 		<a href="#" class="ellipsis">私募基金管理人备案技巧</a>
-					 		<a href="#" class="ellipsis">私募基金管理人备案登记答疑</a>
-					 		<a href="#" class="ellipsis">私募基金解读及实操</a>
-					 	</p>
-					</div>
-				</li>
-				<li>
-					<span><i class="new-in-icon3"></i></span>
-					<div>
-					 	<h3>法律资料下载专区</h3>
-					 	<p>
-					 		<a href="#" class="ellipsis">私募基金政策法规解读及实操</a>
-					 		<a href="#" class="ellipsis">私募基金管理人备案技巧</a>
-					 		<a href="#" class="ellipsis">私募基金管理人备案登记答疑</a>
-					 		<a href="#" class="ellipsis">私募基金解读及实操</a>
-					 	</p>
-					</div>
-				</li>
-				<li>
-					<span><i class="new-in-icon4"></i></span>
-					<div>
-					 	<h3>法律资料下载专区</h3>
-					 	<p>
-					 		<a href="#" class="ellipsis">私募基金政策法规解读及实操</a>
-					 		<a href="#" class="ellipsis">私募基金管理人备案技巧</a>
-					 		<a href="#" class="ellipsis">私募基金管理人备案登记答疑</a>
-					 		<a href="#" class="ellipsis">私募基金解读及实操</a>
-					 	</p>
-					</div>
-				</li>
-				<li>
-					<span><i class="new-in-icon5"></i></span>
-					<div>
-					 	<h3>法律资料下载专区</h3>
-					 	<p>
-					 		<a href="#" class="ellipsis">私募基金政策法规解读及实操</a>
-					 		<a href="#" class="ellipsis">私募基金管理人备案技巧</a>
-					 		<a href="#" class="ellipsis">私募基金管理人备案登记答疑</a>
-					 		<a href="#" class="ellipsis">私募基金解读及实操</a>
-					 	</p>
-					</div>
-				</li>
-				<li>
-					<span><i class="new-in-icon6"></i></span>
-					<div>
-					 	<h3>法律资料下载专区</h3>
-					 	<p>
-					 		<a href="#" class="ellipsis">私募基金政策法规解读及实操</a>
-					 		<a href="#" class="ellipsis">私募基金管理人备案技巧</a>
-					 		<a href="#" class="ellipsis">私募基金管理人备案登记答疑</a>
-					 		<a href="#" class="ellipsis">私募基金解读及实操</a>
-					 	</p>
-					</div>
-				</li>
+	            <% }) %>
 			</ul>
 			<div class="p2017-gg-btn">
     			<a href="#">查看更多  》</a>
     		</div>
 		</div>
+        <% } %>
 		
         <h2 class="ph2">法律知识</h2>
         <div class="w1200 p2017-cf">

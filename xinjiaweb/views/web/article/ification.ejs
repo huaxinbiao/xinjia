@@ -5,18 +5,20 @@
         </div>
         
         <div class="ification-list">
-        	<% ification.forEach(function(item, index){ var count = 0 %>
-        	<div>
-        		<h2 class="layui-elip"><%= item.title %><a href="/index/list/<%= type %>/<%= item._id %><% if(type==1||type==2){ %>?label=<%= type %><%}%>">更多 》</a></h2>
-        		<div>
-        			<% article.forEach(function(item1, index1){ %>
-    				<% if(item1.ification_id == item._id && count < 10){ count++ %>
-        			<a href="/index/article/<%= item1.article_id %>" class="layui-elip"><i>[<%= item1.label==1?'成功案例':'实用信息' %>]</i><%= item1.title %> </a>
-        			<% } %>
-        			<% }) %>
-        		</div>
-        	</div>
-            <% }) %>
+        	<% if(ification){ %>
+	        	<% ification.forEach(function(item, index){ var count = 0 %>
+	        	<div>
+	        		<h2 class="layui-elip"><%= item.title %><a href="/index/list/<%= type %>/<%= item._id %><% if(type==1||type==2){ %>?label=<%= type %><%}%>">更多 》</a></h2>
+	        		<div>
+	        			<% article.forEach(function(item1, index1){ %>
+	    				<% if(item1.ification_id == item._id && count < 10){ count++ %>
+	        			<a href="/index/article/<%= item1.article_id %>" class="layui-elip"><i>[<%= item1.label==1?'成功案例':'实用信息' %>]</i><%= item1.title %> </a>
+	        			<% } %>
+	        			<% }) %>
+	        		</div>
+	        	</div>
+	            <% }) %>
+        	<% } %>
         </div>
         
 <% include ../layout/footer-right.ejs %>

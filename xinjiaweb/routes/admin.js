@@ -508,7 +508,7 @@ router.get('/article/listarticle/:type', function(req, res, next) {
 			res.render('admin/article/listarticle', {
 				bodyclass: null,
 				result: docs,
-				page: total/strip,
+				page: Math.ceil(total / strip),
 				curr: page,
 				ification_list: result,
 				ification: req.params.type,
@@ -747,7 +747,7 @@ router.get('/messages/:type', function(req, res, next){
 			bodyclass: null,
 			result: docs,
 			type: type,
-			page: total/strip,
+			page: Math.ceil(total / strip),
 			curr: page,
 			formatDateTime: Function.formatDateTime
 		});

@@ -324,7 +324,7 @@ router.get('/listfile/:type', function(req, res, next) {
 			res.render('admin/download/listfile', {
 				bodyclass: null,
 				result: docs,
-				page: total/strip,
+				page: Math.ceil(total / strip),
 				curr: page,
 				ification_list: result,
 				ification: req.params.type,

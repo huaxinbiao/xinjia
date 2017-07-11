@@ -43,14 +43,49 @@ router.get('/', function(req, res, next) {
 		}, {
 			title: 1,
 			describe: 1
-		}, function(err, result1) {
-			if(err) {
+		}, function(err1, result1) {
+			if(err1) {
 				return res.redirect('/404');
 			}
-			res.render('web/index/index', {
+			/*res.render('web/index/index', {
 				title: '信嘉法律房产咨询',
 				selected: 'index',
 				ification: result1
+			});*/
+			//获取下载分类
+			Basic.findData('download_ification', {delete: 0}, {title: 1}, function(err2, result2){
+				if(err2) {
+					return res.redirect('/404');
+				}
+				let objId = [];
+				for(let key in result2) {
+					objId.push(result2[key]._id.toString());
+				}
+				var docs = [];
+				var findOne = function(i){
+					Page.find('download_file', {
+						ification: objId[i]
+					}, {}, 1, 4, function(error, doc) {
+						if(error) {
+							return res.redirect('/404');
+						}
+						if(i>=objId.length){
+							//获取分类下的文章
+							//console.log(docs)
+							res.render('web/index/index', {
+								title: '信嘉法律房产咨询',
+								selected: 'index',
+								ification: result1,
+								download_ification: result2,
+								download: docs
+							});
+						}else{
+							docs = [...docs, ...doc];
+							findOne(++i);
+						}
+					})
+				}
+				findOne(0);
 			});
 		})
 	})
@@ -101,25 +136,54 @@ router.get('/index/ification/:type', function(req, res, next) {
 				for(let key in result1) {
 					objId.push(result1[key]._id.toString());
 				}
-				//查找文章
-				Basic.findData('articlecollection', {
-					ification_id: {
-						"$in": objId
-					},
-					label: req.params.type
-				}, {}, function(err2, result2) {
-					if(err2) {
-						return res.redirect('/404');
+				if(objId.length<200){
+					var docs = [];
+					var findOne = function(i){
+						Page.find('articlecollection', {
+							ification_id: objId[i],
+							label: req.params.type
+						}, {}, 1, 10, function(error, doc) {
+							if(error) {
+								return res.redirect('/404');
+							}
+							if(i>=objId.length){
+								//获取分类下的文章
+								//console.log(docs)
+								res.render('web/article/ification', {
+									title: '信嘉法律房产咨询',
+									selected: req.params.type,
+									type: req.params.type,
+									ification: result1,
+									article: docs
+								});
+							}else{
+								docs = [...docs, ...doc];
+								findOne(++i);
+							}
+						})
 					}
-					//获取分类下的文章
-					res.render('web/article/ification', {
-						title: '信嘉法律房产咨询',
-						selected: req.params.type,
-						type: req.params.type,
-						ification: result1,
-						article: result2
-					});
-				})
+					findOne(0);
+				}else{
+					//查找文章
+					Basic.findData('articlecollection', {
+						ification_id: {
+							"$in": objId
+						},
+						label: req.params.type
+					}, {}, function(err2, result2) {
+						if(err2) {
+							return res.redirect('/404');
+						}
+						//获取分类下的文章
+						res.render('web/article/ification', {
+							title: '信嘉法律房产咨询',
+							selected: req.params.type,
+							type: req.params.type,
+							ification: result1,
+							article: result2
+						});
+					})
+				}
 			})
 		})
 	}else{
@@ -255,23 +319,30 @@ router.get('/index/list/:type/:ification', function(req, res, next) {
 				if(req.query.label == 1 || req.query.label == 2) {
 					opation1.label = req.query.label
 				}
-				var strip = 20;
+				var strip = 10;
 				Page.find('articlecollection', opation1, {}, page, strip, function(err2, docs, total) {
 					if(err2) {
 						return res.redirect('/404');
 					}
-					res.render('web/article/list', {
-						title: '信嘉法律房产咨询',
-						selected: null,
-						ification: result1,
-						article: docs,
-						type: req.params.type,
-						label: req.query.label,
-						page: total / strip,
-						curr: page,
-						ification_curr: req.params.ification,
-						formatDateTime: Function.formatDateTime
-					});
+					Basic.findOne('about', {type: 1}, {}, function(err3, result3){
+						if(err3){
+							return res.redirect('/404');
+						}
+						console.log(result3)
+						res.render('web/article/list', {
+							title: '信嘉法律房产咨询',
+							selected: null,
+							ification: result1,
+							article: docs,
+							type: req.params.type,
+							label: req.query.label,
+							page: Math.ceil(total / strip),
+							curr: page,
+							about: result3?result3:{},
+							ification_curr: req.params.ification,
+							formatDateTime: Function.formatDateTime
+						});
+					})
 				})
 			})
 		})
@@ -295,18 +366,24 @@ router.get('/index/list/:type/:ification', function(req, res, next) {
 				if(err2) {
 					return res.redirect('/404');
 				}
-				res.render('web/article/list', {
-					title: '信嘉法律房产咨询',
-					selected: null,
-					ification: result,
-					article: docs,
-					type: req.params.type,
-					label: req.query.label,
-					page: total / strip,
-					curr: page,
-					ification_curr: req.params.ification,
-					formatDateTime: Function.formatDateTime
-				});
+				Basic.findOne('about', {type: 1}, {}, function(err3, result3){
+					if(err3){
+						return res.redirect('/404');
+					}
+					res.render('web/article/list', {
+						title: '信嘉法律房产咨询',
+						selected: null,
+						ification: result,
+						article: docs,
+						type: req.params.type,
+						label: req.query.label,
+						page: Math.ceil(total / strip),
+						curr: page,
+						about: result3,
+						ification_curr: req.params.ification,
+						formatDateTime: Function.formatDateTime
+					});
+				})
 			})
 		})
 	}
