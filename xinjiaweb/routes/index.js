@@ -464,4 +464,15 @@ router.get('/index/about', function(req, res, next) {
 })
 
 
+/*//文件下载
+router.get('/uploads/download/:time/:fileName', function(req, res, next) {
+ 	// 实现文件下载 
+ 	// 实现文件下载 
+ 	console.log('uploads/download/'+req.params.time+'/'+req.params.fileName)
+	res.download('uploads/download/'+req.params.time+'/', req.params.fileName);
+});*/
+
+
+
+
 module.exports = router;

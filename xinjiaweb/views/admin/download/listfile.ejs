@@ -1,0 +1,147 @@
+﻿<% include ../layout/header.ejs %>
+		<link rel="stylesheet" href="/BeginnerAdmin/css/table.css" />
+		<div class="admin-main">
+			<a href="javascript:;" id="add_ification" class="layui-btn layui-btn-small">添加文件</a>
+			<a href="javascript:;" onclick="location.reload()" class="layui-btn layui-btn-small">刷新</a>
+			<blockquote class="layui-elem-quote">
+				<form class="layui-form" action="">
+					<div class="layui-form-item">
+						<label class="layui-form-label">文件分类</label>
+						<div class="layui-input-inline">
+							<select name="ification" lay-verify="required">
+								<option value="1">全部</option>
+								<% ification_list.forEach(function(item, index){ %>
+									<option value="<%= item._id %>" <% if(item._id == ification){ %>selected="selected"<% } %>><%= item.title %></option>
+								<% }) %>
+							</select>
+						</div>
+						<button lay-submit="" class="layui-btn layui-btn-small" id="search" lay-filter="search" style="margin-top: 4px;">
+							<i class="layui-icon">&#xe615;</i> 搜索
+						</button>
+					</div>
+				</form>
+			</blockquote>
+			<fieldset class="layui-elem-field">
+				<legend>文章列表</legend>
+				<div class="layui-field-box layui-form">
+					<table class="layui-table admin-table">
+						<thead>
+							<tr>
+								<th>文件标题</th>
+								<th>文件简介</th>
+								<th style="width: 120px;">文件名</th>
+								<th style="width: 200px;">所属分类</th>
+								<th style="width: 120px;">发布时间</th>
+								<th style="width: 130px;">操作</th>
+							</tr>
+						</thead>
+						<tbody id="content">
+							<% if(result.length < 1){ %>
+								<tr><th colspan="6">暂无数据，请先添加文件</th></tr>
+							<% }else{ %>
+								<% result.forEach(function(item, index){ %>
+									<tr>
+										<td><%= item.title %></td>
+										<td><%= item.describe %></td>
+										<td><a href="<%= item.file_src %>" target="_blank">下载文件</a></td>
+										<td>
+										<% ification_list.forEach(function(item1, index1){ %>
+											<% if(item.ification == item1._id){ %><%= item1.title %><% } %>
+										<% }) %>
+										</td>
+										<td><%= formatDateTime(item.time, 1) %></td>
+										<td>
+											<a href="javascript:;" data-id="<%= item._id %>" class="layui-btn layui-btn-mini edit">编辑</a>
+											<a href="javascript:;" data-id="<%= item._id %>" class="layui-btn layui-btn-danger layui-btn-mini del">删除</a>
+										</td>
+									</tr>
+								<% }) %>
+							<% } %>
+						</tbody>
+					</table>
+				</div>
+			</fieldset>
+			<div class="admin-table-page">
+				<div id="paged" class="page">
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="/BeginnerAdmin/plugins/layui/layui.js"></script>
+		<script>
+			layui.use(['laypage', 'form'], function() {
+				var $ = layui.jquery,
+					layer = layui.layer, //获取当前窗口的layer对象
+					form = layui.form(),
+					laypage = layui.laypage;
+					
+					laypage({
+					    cont: 'paged'
+					    ,pages: <%= page %>
+					    ,curr: <%= curr %>
+					    ,first: 1
+					    ,last: <%= page %>
+					    ,prev: '<em><</em>'
+					    ,next: '<em>></em>'
+					    ,jump: function(obj, first){
+					    	var curr = obj.curr;
+					    	if(!first){
+					    		location.href = '/admin/download/listfile/<%= ification %>?page='+curr
+					    	}
+					    }
+					});
+					
+					//监听提交
+					form.on('submit(search)', function(data) {
+						location.href = "/admin/download/listfile/"+data.field.ification;
+						return false;
+					});
+				
+					$('.del').click(function(){
+						var self = $(this);
+						var id = $(this).attr('data-id')
+						layer.alert('你确认删除？',function(index){
+							$.post('/admin/download/delfile', {file_id: id}, function(res){
+								layer.close(index);
+								if(res.code == 200){
+									self.parents('tr').remove();
+									layer.msg('删除成功', function(){
+										location.reload();
+									});
+								}else{
+									layer.msg('删除失败，'+res.msg);
+								}
+							})
+						})
+					})
+				
+					$('.edit').click(function(){
+						var self = $(this);
+						var id = $(this).attr('data-id')
+						layer.open({
+						  	type: 2,
+						  	title: '编辑文件信息',
+						  	shadeClose: true,
+						  	shade: 0.8,
+						  	area: ['680px', '66%'],
+						  	content: '/admin/download/editfile?file_id='+id //iframe的url
+						}); 
+					})
+				
+					$('#add_ification').click(function(){
+						layer.open({
+						  	type: 2,
+						  	title: '添加文件',
+						  	shadeClose: true,
+						  	shade: 0.8,
+						  	area: ['680px', '66%'],
+						  	content: '/admin/download/addfile' //iframe的url
+						}); 
+					})
+			});
+			function reload(info){
+				location.reload();
+			}
+		</script>
+	</body>
+
+</html>

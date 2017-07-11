@@ -940,13 +940,15 @@ router.post('/upload', function(req, res) {
 			createFolder('./uploads/article/');
 			var d = new Date();
 			var str = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
-			uploadFolder = './uploads/article/'+str+'/';
+			var uploadFolder = './uploads/article/'+str+'/';
 			//console.log(uploadFolder);
 		}else if(type == 'download'){
 			createFolder('./uploads/download/');
 			var d = new Date();
 			var str = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
-			uploadFolder = './uploads/download/'+str+'/';
+			var uploadFolder = './uploads/download/'+str+'/';
+		}else{
+			var uploadFolder = './uploads/ification/';
 		}
 		createFolder(uploadFolder)
 		// 移动文件

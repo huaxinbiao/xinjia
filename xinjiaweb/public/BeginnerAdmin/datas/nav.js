@@ -45,7 +45,7 @@ var navs = [{
 	}, {
 		"title": "文件列表",
 		"icon": "&#xe64c;",
-		"href": "/admin/download/addfile"
+		"href": "/admin/download/listfile/1"
 	}]
 },{
 	"title": "网站留言",

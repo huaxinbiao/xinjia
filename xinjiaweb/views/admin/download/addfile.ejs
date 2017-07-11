@@ -18,8 +18,18 @@
 					</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">上传文件</label>
+					<label class="layui-form-label">文件分类</label>
 					<div class="layui-input-inline">
+						<select name="ification" lay-verify="required">
+							<% ification_list.forEach(function(item, index){ %>
+								<option value="<%= item._id %>"><%= item.title %></option>
+							<% }) %>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">上传文件</label>
+					<div class="layui-input-inline" style="width: 246px;">
 						<input type="file" name="download" lay-type="file" lay-ext="jpg|png|gif|pfd|pdf|doc|docx|xlsx|xlsm|pptx|pptm|zip|rar" lay-title="上传文件，大小不超过20M" class="layui-upload-file">
 						<input type="hidden" id="file-input" name="file_src" />
 					</div>
@@ -58,7 +68,7 @@
 						return false;
 					}
 					t_fun = true;
-					$.post('/admin/download/addification', data.field, function(res){
+					$.post('/admin/download/addfile', data.field, function(res){
 						if(res.code == 200){
 							parent.reload(1)
 						}else{
@@ -86,6 +96,7 @@
 				  			$('.layui-word-aux').text('上传成功');
 				  		}else{
 				  			layer.msg(res.msg)
+				  			$('.layui-word-aux').text('上传失败');
 				  		}
 				  	}
 				});     
