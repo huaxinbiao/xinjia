@@ -256,7 +256,7 @@ table th {
 首页top
 */
 .icon {
-  background: url("../../dist/images/icon-main.png") no-repeat 100px 100px;
+  background: url("../images/icon-main.png") no-repeat 100px 100px;
   display: inline-block;
   vertical-align: middle;
 }
@@ -1982,6 +1982,79 @@ table th {
 }
 .new-download li > span i.new-in-icon6 {
   background: url(../images/icon-12-2017.png) no-repeat center;
+}
+.article-zc {
+  width: 298px;
+  margin: 0 53px 0 0;
+  border: #E8E8E8 1px solid;
+}
+.article-zc h2 {
+  line-height: 40px;
+  background: #f1f1f1;
+  color: #37a8f1;
+  padding: 0 10px;
+}
+.article-zc > div {
+  padding: 10px;
+}
+.article-zc > div a {
+  display: block;
+  line-height: 24px;
+  padding: 5px 10px 5px 15px;
+  color: #666666;
+}
+.article-zc > div a:hover {
+  color: #37a8f1;
+}
+.article-zc > div .cur {
+  color: #37a8f1;
+}
+.download {
+  width: 847px;
+}
+.download table {
+  width: 100%;
+}
+.download table thead {
+  background: #f1f1f1;
+}
+.download table thead th {
+  border: none;
+  line-height: 40px;
+}
+.download table tbody tr {
+  border-bottom: #E8E8E8 1px solid;
+}
+.download table tbody tr:hover {
+  background: #ebf6fe;
+}
+.download table tbody tr:hover a {
+  color: #37a8f1;
+}
+.download table tbody tr:hover a i {
+  background-position: -341px -381px;
+}
+.download table tbody td {
+  line-height: 24px;
+  padding: 15px 5px;
+  border: none;
+}
+.download table tbody td a {
+  color: #333333;
+}
+.download table tbody td a > i {
+  width: 20px;
+  height: 24px;
+  background-position: -309px -381px;
+  margin-right: 5px;
+}
+.download table tbody td a.btn {
+  color: #fff !important;
+  background: #37a8f1;
+  padding: 0 15px;
+  line-height: 30px;
+  border-radius: 3px;
+  display: inline-block;
 }
 .falv-2017 {
   width: 1200px;

@@ -17,7 +17,7 @@ const fs = require('fs');
 const Promise = require('bluebird');
 
 //导入路由
-router.use('/toplevel', require('./admin_m.js'));
+router.use('/toplevel', require('./toplevel.js'));
 router.use('/download', require('./download.js'));
 
 /* GET users listing. */
@@ -61,7 +61,7 @@ router.get('/login', function(req, res, next) {
 
 //登录
 router.post('/login', function(req, res, next){
-    if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(req.body.userName) || /(^\_)|(\__)|(\_+$)/.test(req.body.userName)){
+    if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(req.body.userName)){
       	return res.json({
 			code: 103,
 			msg: '账号或密码错误'
@@ -76,6 +76,8 @@ router.post('/login', function(req, res, next){
 	//生成密码MD5
 	let password = crypto.createHash('md5').update(req.body.password).digest('hex');
 	let g_password = crypto.createHash('md5').update(AdmincConst.PASSWORD).digest('hex');
+	console.log(req.body.userName)
+	console.log(AdmincConst.NAME)
 	if(req.body.userName != AdmincConst.NAME){
 		return res.json({
 			code: 103,
@@ -874,6 +876,8 @@ router.post('/upload', function(req, res) {
 		  		'vnd.ms-excel',
 		  		'application/zip',
 		  		'applicapplication/x-rar',
+		  		'application/octet-stream',
+		  		'application/x-zip-compressed',
 		  		'application/kswps',
 				'application/kset',
 				'application/ksdps',
@@ -900,7 +904,7 @@ router.post('/upload', function(req, res) {
 				'application/vnd.ms-excel.template.macroEnabled.12',
 				'application/vnd.openxmlformats-officedocument.spreadsheetml',
 				'application/vnd.ms-xpsdocument'
-		  	]
+		  	];
 		  	if(filetype.indexOf(req.file.mimetype) > -1){
 		  		extName = 'download';
 		  	}

@@ -47,7 +47,7 @@
 					}
 					t_fun = true;
 					data.field = $('form').serialize();
-					$.post('/admin/toplevel', data.field, function(res){
+					$.post('/admin/toplevel/nav', data.field, function(res){
 						if(res.code == 200){
 							layer.msg('保存成功', function(){
 								location.reload();

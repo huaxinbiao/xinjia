@@ -140,7 +140,7 @@ table{
     font-size: @size+12px;
 }
 .icon{
-    background: url("@{url}icon-main.png") no-repeat 100px 100px;
+    background: url("../images/icon-main.png") no-repeat 100px 100px;
     display: inline-block;
     vertical-align: middle;
 }
@@ -1869,6 +1869,82 @@ table{
             }
             i.new-in-icon6{
                 background: url(../images/icon-12-2017.png) no-repeat center;
+            }
+        }
+    }
+}
+
+.article-zc{
+    width: 298px;
+    margin: 0 53px 0 0;
+    border: #E8E8E8 1px solid;
+    h2{
+        line-height: 40px;
+        background: #f1f1f1;
+        color: @base-color;
+        padding: 0 10px;
+    }
+    >div{
+        padding: 10px;
+        a{
+            display: block;
+            line-height: 24px;
+            padding: 5px 10px 5px 15px;
+            color: @color6;
+            &:hover{
+                color: @base-color;
+            }
+        }
+        .cur{
+            color: @base-color;
+        }
+    }
+}
+.download{
+    width: 847px;
+    table{
+        width: 100%;
+        thead{
+            background: #f1f1f1;
+            th{
+                border: none;
+                line-height: 40px;
+            }
+        }
+        tbody{
+            tr{
+                border-bottom: #E8E8E8 1px solid;
+                &:hover{
+                    background: #ebf6fe;
+                    a{
+                        color: @base-color;
+                        i{
+                            background-position: -341px -381px;
+                        }
+                    }
+                }
+            }
+            td{
+                line-height: 24px;
+                padding: 15px 5px;
+                border: none;
+                a{
+                    color: @color3;
+                    >i{
+                        width: 20px;
+                        height: 24px;
+                        background-position: -309px -381px;
+                        margin-right: 5px;
+                    }
+                }
+                a.btn{
+                    color: @white !important;
+                    background: @base-color;
+                    padding: 0 15px;
+                    line-height: 30px;
+                    border-radius: 3px;
+                    display: inline-block;
+                }
             }
         }
     }

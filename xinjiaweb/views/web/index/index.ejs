@@ -20,102 +20,41 @@
         	<div class="aliyun">
         		<h2 class="ph2">专业特长</h2>
         		<div>
-        			<div class="aliyun_li active">
+        			<% if(professional.length > 0){ %>
+	        		<% professional.forEach(function(item, index){ %>
+        			<div class="aliyun_li <% if(index==0){ %>active<%}%>">
         				<div class="aliyun_li_top">
-        					<i class="pbg-2017 pbg-2017-a1"></i>
-        					<span>婚姻家庭</span>
-        					<p>分类描述分类描述分类描述分类描述</p>
+        					<i class="pbg-2017 pbg-2017-a<%= index+1 %>"></i>
+        					<span><%= item[0] %></span>
+        					<p><%= item[1] %></p>
         				</div>
         				<div class="aliyun_li_con">
         					<div class="aliyun_li_o">
-        						<span>离婚咨询</span>
-        						<span>财产分割</span>
+        						<% item[2].forEach(function(item1, index1){ %>
+        							<% ification_whole.forEach(function(item2, index2){ %>
+    								<span><% if(item1 == item2._id){ %><%= item2.title %><% } %></span>
+    								<% }) %>
+        						<% }) %>
         					</div>
         					<div class="aliyun_li_p">
-        						<div class="aliyun_li_t">
-        							<h3>婚姻家庭</h3>
-        							<p>分类描述分类描述分类描述分类描述</p>
-        							<a href="#">立即查看</a>
-        						</div>
-        						<div class="aliyun_li_t">
-        							<h3>婚姻家庭</h3>
-        							<p>分类描述分类描述分类描述分类描述</p>
-        							<a href="#">立即查看</a>
-        						</div>
-        						<!--<div class="aliyun_li_c">
-        							<div>
-        								<p>离婚咨询</p>
-        								<a href="#">立即查看</a>
-        							</div>
-        							<div>
-        								<p>财产分割</p>
-        								<a href="#">立即查看</a>
-        							</div>
-        						</div>-->
+        						<% item[2].forEach(function(item1, index1){ %>
+        							<% ification_whole.forEach(function(item2, index2){ %>
+    								<% if(item1 == item2._id){ %>
+	        						<div class="aliyun_li_t">
+	        							<h3><%= item2.title %></h3>
+	        							<p><%= item2.describe %></p>
+	        							<a href="/index/list/index/<%= item2._id %>">立即查看</a>
+	        						</div>
+	        						<% } %>
+    								<span></span>
+    								<% }) %>
+        						<% }) %>
         					</div>
         				</div>
         			</div>
-        			<div class="aliyun_li">
-        				<div class="aliyun_li_top">
-        					<i class="pbg-2017 pbg-2017-a2"></i>
-        					<span>房产纠纷</span>
-        					<p>分类描述分类描述分类描述分类描述</p>
-        				</div>
-        				<div class="aliyun_li_con">
-        					<div class="aliyun_li_o">
-        						<span>二手房买卖</span>
-        						<span>借名买房</span>
-        					</div>
-        					<div class="aliyun_li_p">
-        						<div class="aliyun_li_t">
-        							<h3>二手房买卖</h3>
-        							<p>分类描述分类描述分类描述分类描述</p>
-        							<a href="#">立即查看</a>
-        						</div>
-        						<div class="aliyun_li_c">
-        							<div>
-        								<p>二手房买卖</p>
-        								<a href="#">立即查看</a>
-        							</div>
-        							<div>
-        								<p>借名买房</p>
-        								<a href="#">立即查看</a>
-        							</div>
-        						</div>
-        					</div>
-        				</div>
-        			</div>
-        			<div class="aliyun_li">
-        				<div class="aliyun_li_top">
-        					<i class="pbg-2017 pbg-2017-a3"></i>
-        					<span>继承纠纷</span>
-        					<p>分类描述分类描述分类描述分类描述</p>
-        				</div>
-        				<div class="aliyun_li_con">
-        					<div class="aliyun_li_o">
-        						<span>房产继承</span>
-        						<span>分家析产</span>
-        					</div>
-        					<div class="aliyun_li_p">
-        						<div class="aliyun_li_t">
-        							<h3>继承纠纷</h3>
-        							<p>分类描述分类描述分类描述分类描述</p>
-        							<a href="#">立即查看</a>
-        						</div>
-        						<div class="aliyun_li_c">
-        							<div>
-        								<p>房产继承</p>
-        								<a href="#">立即查看</a>
-        							</div>
-        							<div>
-        								<p>分家析产</p>
-        								<a href="#">立即查看</a>
-        							</div>
-        						</div>
-        					</div>
-        				</div>
-        			</div>
-        			<div class="aliyun_li">
+        			<% }) %>
+        			<% } %>
+        			<!--<div class="aliyun_li">
         				<div class="aliyun_li_top">
         					<i class="pbg-2017 pbg-2017-a4"></i>
         					<span>法律顾问</span>
@@ -144,7 +83,7 @@
         						</div>
         					</div>
         				</div>
-        			</div>
+        			</div>-->
         			<span class="clear" style="display: block;"></span>
         		</div>
         	</div>
@@ -169,35 +108,35 @@
         <h2 class="ph2">成功案例</h2>
         <div class="falv-2017">
         	<div class="img-bg-1">
-        		<a href="#">
+        		<a href="/index/list/index/5965cf7326def17eb1e7e6de">
 	        		<i><img src="/images/icon-13-2017.png"></i>
 	        		<h3>对方违约 <br />如何维护权益？</h3>
 	        		<span>立刻查看</span>
         		</a>
         	</div>
         	<div class="img-bg-2">
-        		<a href="#">
+        		<a href="/index/list/index/5965cfb026def17eb1e7e6e0">
 	        		<i><img src="/images/icon-13-2017.png"></i>
 	        		<h3>借名买房<br />如何保证拿到房产？</h3>
 	        		<span>立刻查看</span>
         		</a>
         	</div>
         	<div class="img-bg-3">
-        		<a href="#">
+        		<a href="/index/list/index/5965cf3226def17eb1e7e6dd">
 	        		<i><img src="/images/icon-13-2017.png"></i>
 	        		<h3>亲人离世<br />如何办理房产继承？</h3>
 	        		<span>立刻查看</span>
         		</a>
         	</div>
         	<div class="img-bg-4">
-        		<a href="#">
+        		<a href="/index/list/index/5965cf2826def17eb1e7e6dc">
 	        		<i><img src="/images/icon-13-2017.png"></i>
 	        		<h3>离婚<br />如何分得房产？</h3>
 	        		<span>立刻查看</span>
         		</a>
         	</div>
         	<div class="img-bg-5">
-        		<a href="#">
+        		<a href="/index/list/index/5965cfc126def17eb1e7e6e1">
 	        		<i><img src="/images/icon-13-2017.png"></i>
 	        		<h3>法律事件<br />突发法律事件怎么办？</h3>
 	        		<span>立刻查看</span>
@@ -209,6 +148,7 @@
 		<div class="new-download">
 			<ul>
 	        	<% download_ification.forEach(function(item, index){ %>
+	        	<% if(index<6){ %>
 				<li>
 					<span><i class="new-in-icon<%= index+1 %>"></i></span>
 					<div>
@@ -222,80 +162,82 @@
 					 	</p>
 					</div>
 				</li>
+	        	<% } %>
 	            <% }) %>
 			</ul>
 			<div class="p2017-gg-btn">
-    			<a href="#">查看更多  》</a>
+    			<a href="index/download/index" target="_blank">查看更多  》</a>
     		</div>
 		</div>
         <% } %>
-		
+		<style>
+			.p2017-cf > div dl dd > span>a{
+				font-size: 18px;
+			}
+			.p2017-cf > div dl dd > span>a:hover{
+				color: #1674D4;
+			}
+		</style>
         <h2 class="ph2">法律知识</h2>
         <div class="w1200 p2017-cf">
         	<div>
         		<dl>
         			<dt class="pbg-2017 pbg-2017-b1"></dt>
         			<dd>
-        				<span>法律相关</span>
-        				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
+        				<span><a href="/index/list/index/5965cfc126def17eb1e7e6e1?label=2">法律顾问相关</a></span></a>
+        				<p>请提供文字</p>
         				<div>
-        					<i>2016-09-02</i>
-        					<a href="#">更多>></a>
+        					<a href="/index/list/index/5965cfc126def17eb1e7e6e1?label=2">更多>></a>
         				</div>
         			</dd>
         		</dl>
         		<dl>
         			<dt class="pbg-2017 pbg-2017-b2"></dt>
         			<dd>
-        				<span>二手房相关</span>
+        				<span><a href="/index/list/index/5965cf7326def17eb1e7e6de?label=2">二手房相关</a></span>
         				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
         				<div>
-        					<i>2016-09-02</i>
-        					<a href="#">更多>></a>
+        					<a href="/index/list/index/5965cf7326def17eb1e7e6de?label=2">更多>></a>
         				</div>
         			</dd>
         		</dl>
         		<dl>
         			<dt class="pbg-2017 pbg-2017-b3"></dt>
         			<dd>
-        				<span>婚姻房产相关</span>
+        				<span><a href="/index/list/index/5965cf2826def17eb1e7e6dc?label=2">婚姻房产相关</a></span>
         				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
         				<div>
-        					<i>2016-09-02</i>
-        					<a href="#">更多>></a>
+        					<a href="/index/list/index/5965cf2826def17eb1e7e6dc?label=2">更多>></a>
         				</div>
         			</dd>
         		</dl>
         		<dl>
         			<dt class="pbg-2017 pbg-2017-b4"></dt>
         			<dd>
-        				<span>借名买房相关</span>
+        				<span><a href="/index/list/index/5965cfb026def17eb1e7e6e0?label=2">借名买房相关</a></span>
         				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
         				<div>
-        					<i>2016-09-02</i>
-        					<a href="#">更多>></a>
+        					<a href="/index/list/index/5965cfb026def17eb1e7e6e0?label=2">更多>></a>
         				</div>
         			</dd>
         		</dl>
         		<dl>
         			<dt class="pbg-2017 pbg-2017-b5"></dt>
         			<dd>
-        				<span>继承房产相关</span>
+        				<span><a href="/index/list/index/5965cf3226def17eb1e7e6dd?label=2">继承房产相关</a></span>
         				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
         				<div>
-        					<i>2016-09-02</i>
-        					<a href="#">更多>></a>
+        					<a href="/index/list/index/5965cf3226def17eb1e7e6dd?label=2">更多>></a>
         				</div>
         			</dd>
         		</dl>
         		<dl>
         			<dt class="pbg-2017 pbg-2017-b6"></dt>
         			<dd>
-        				<span>分家析产相关</span>
+        				<span><a href="/index/list/index/5965cf9e26def17eb1e7e6df?label=2">分家析产相关</a></span>
         				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
         				<div>
-        					<i>2016-09-02</i>
-        					<a href="#">更多>></a>
+        					<a href="/index/list/index/5965cf9e26def17eb1e7e6df?label=2">更多>></a>
         				</div>
         			</dd>
         		</dl>

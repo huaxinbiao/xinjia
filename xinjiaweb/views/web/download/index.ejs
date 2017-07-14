@@ -1,0 +1,75 @@
+<% include ../layout/header.ejs %>
+        <div class="banner-nav-2017">
+        	<img src="/images/banner-2-2017.png" style="display: block;width: 100%;">
+        	<% include ../layout/nav.ejs %>
+        </div>
+		<!--面包屑-->
+		<div class="w1200 crumbs">
+			<a href="/">首页</a><i>/</i><span>资料下载</span>
+		</div>
+		<div class="w1200" style="margin-bottom: 80px;min-height: 500px;">
+    		<div class="hidden">
+				<div style="float: left;">
+					<div class="floatLeft article-zc">
+						<h2>全部分类</h2>
+						<div>
+							<% download_ification.forEach(function(item, index){ %>
+							<a href="/index/download/<%= item._id %>" <% if(item._id == type){ %>class="cur"<% } %>><%= item.title %></a>
+							<% }) %>
+						</div>
+					</div>
+				</div>
+				<div class="floatLeft download">
+					<table>
+						<thead>
+							<tr>
+								<th>文件名称</th>
+								<th style="width: 150px;">发布时间</th>
+								<th style="width: 150px;">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% if(download.length < 1){ %>
+							<tr>
+								<td colspan="3">暂无数据</td>
+							</tr>
+							<% }else{ %>
+							<% download.forEach(function(item, index){ %>
+							<tr>
+								<td class="pull-left">
+									<a href="javascript:;"><i class="icon"></i><%= item.title %></a>
+								</td>
+								<td><%= formatDateTime(item.time, 2) %></td>
+								<td>
+									<a href="<%= item.file_src %>" target="_blank" class="btn">下载</a>
+								</td>
+							</tr>
+							<% }) %>
+							<% } %>
+						</tbody>
+					</table>
+					<div class="page" style="margin-top: 50px;">
+						<div id="paged"></div>
+					</div>
+				</div>
+		</div>
+		</div>	
+<% include ../layout/footer-right.ejs %>
+<script>
+	laypage({
+	    cont: 'paged'
+	    ,pages: <%= page %>
+	    ,curr: <%= curr %>
+	    ,first: 1
+	    ,last: <%= page %>
+	    ,prev: '<em><</em>'
+	    ,next: '<em>></em>'
+	    ,jump: function(obj, first){
+	    	var curr = obj.curr;
+	    	if(!first){
+	    		location.href = '/index/download/<%= type %>?page='+curr;
+	    	}
+	    }
+	});
+</script>
+<% include ../layout/footer.ejs %>

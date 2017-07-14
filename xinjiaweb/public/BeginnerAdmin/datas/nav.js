@@ -24,16 +24,20 @@ var navs = [{
 		"href": "/admin/article/listarticle/1"
 	}]
 },{
-	"title": "网站模块设置",
+	"title": "首页设置",
 	"icon": "&#xe632;",
 	"children": [{
 		"title": "成功案例设置",
-		"icon": "&#xe609;",
-		"href": "/admin/toplevel/1"
+		"icon": "&#xe63c;",
+		"href": "/admin/toplevel/nav/1"
 	}, {
 		"title": "实用信息设置",
 		"icon": "&#xe63c;",
-		"href": "/admin/toplevel/2"
+		"href": "/admin/toplevel/nav/2"
+	}, {
+		"title": "专业特长设置",
+		"icon": "&#xe63c;",
+		"href": "/admin/toplevel/professional"
 	}]
 },{
 	"title": "下载管理",
