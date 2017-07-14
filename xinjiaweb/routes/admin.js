@@ -168,6 +168,7 @@ router.post('/article/addification', function(req, res, next) {
 		title: req.body.title,
 		describe: req.body.describe,
 		ification_banner: req.body.ification_banner,
+		ification_banner_big: req.body.ification_banner_big,
 		delete: 0,
 		time: new Date().getTime().toString()
 	}
@@ -269,6 +270,7 @@ router.post('/article/editification', function(req, res, next) {
 		title: req.body.title,
 		describe: req.body.describe,
 		ification_banner: req.body.ification_banner,
+		ification_banner_big: req.body.ification_banner_big,
 		time: new Date().getTime().toString()
 	}
 	//更新分类信息；

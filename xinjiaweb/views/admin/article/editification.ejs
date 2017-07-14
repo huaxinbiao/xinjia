@@ -22,9 +22,19 @@
 					<label class="layui-form-label">分类图片</label>
 					<div class="layui-input-block">
 						<input type="file" name="ification_img" class="layui-upload-file">
-						<img src="<%= result.ification_banner %>" id="orihead" style="max-width: 200px;">
-						<input type="hidden" id="orihead-input" value="<%= result.ification_banner %>" name="ification_banner" />
+						<img src="<%= result.ification_banner %>" style="max-width: 300px;">
+						<input type="hidden" value="<%= result.ification_banner %>" name="ification_banner" />
 					</div>
+					<div class="layui-form-mid layui-word-aux" style="margin-left: 110px;">图片大小400px*300px</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">分类顶部banner图</label>
+					<div class="layui-input-block">
+						<input type="file" name="ification_img" class="layui-upload-file">
+						<img src="<%= result.ification_banner_big %>" style="max-width: 300px;">
+						<input type="hidden" value="<%= result.ification_banner_big %>" name="ification_banner_big" />
+					</div>
+					<div class="layui-form-mid layui-word-aux">图片大小1920px*396px</div>
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
@@ -74,10 +84,10 @@
 				});
 				layui.upload({
 				  	url: '/admin/upload?type=ification_img'
-				  	,success: function(res){
+				  	,success: function(res, inputDom){
 				  		if(res.code == 200){
-				  			$('#orihead').attr('src', res.data.orihead);
-				  			$('#orihead-input').val(res.data.orihead);
+				  			$(inputDom).parents('.layui-box.layui-upload-button').next().attr('src', res.data.orihead);
+				  			$(inputDom).parents('.layui-box.layui-upload-button').next().next().val(res.data.orihead);
 				  			layer.msg('上传成功');
 				  		}else{
 				  			layer.msg(res.msg)

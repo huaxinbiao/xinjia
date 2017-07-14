@@ -1,6 +1,6 @@
 <% include ../layout/header.ejs %>
         <div class="banner-nav-2017">
-        	<span style="display: block;height: 396px;width: 100%;min-width: 1200px;background: url(<% for(i in ification){ %><% if(ification[i]._id == ification_curr){ %><% if(!!ification[i].ification_banner){ %><%= ification[i].ification_banner %><% }else{ %>/images/banner-2-2017.png<% } %><% } %><% } %>) no-repeat top center;"></span>
+        	<img style="display: block;max-height: 396px;width: auto;margin: 0 auto;" src="<% for(i in ification){ %><% if(ification[i]._id == ification_curr){ %><% if(!!ification[i].ification_banner_big){ %><%= ification[i].ification_banner_big %><% }else{ %>/images/banner-2-2017.png<% } %><% } %><% } %>">
         	<% include ../layout/nav.ejs %>
         </div>
         

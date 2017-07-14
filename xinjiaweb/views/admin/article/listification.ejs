@@ -11,6 +11,7 @@
 								<th style="width: 330px;">分类名称</th>
 								<th>分类简介</th>
 								<th>分类图片</th>
+								<th>banner图片</th>
 								<th style="width: 130px;">操作</th>
 							</tr>
 						</thead>
@@ -22,7 +23,8 @@
 									<tr>
 										<td><%= item.title %></td>
 										<td><%= item.describe %></td>
-										<td><img src="<%= item.ification_banner %>" style="max-height: 100px;"></td>
+										<td><img src="<%= item.ification_banner %>" style="max-height: 80px;"></td>
+										<td><img src="<%= item.ification_banner_big %>" style="max-height: 80px;"></td>
 										<td>
 											<a href="javascript:;" data-id="<%= item._id %>" class="layui-btn layui-btn-mini edit">编辑</a>
 											<a href="javascript:;" data-id="<%= item._id %>" class="layui-btn layui-btn-danger layui-btn-mini del">删除</a>
