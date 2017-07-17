@@ -49,10 +49,9 @@
 		$.post('/index/messages', data.field, function(res){
 			if(res.code == 200){
 				$('input').val('');
-				layer.msg(res.msg, function(){
-					var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-					parent.layer.close(index); //再执行关闭   
-				})
+				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+				parent.close_layer('留言成功！')
+				parent.layer.close(index); //再执行关闭
 			}else{
 				layer.msg(res.msg)
 			}

@@ -44,6 +44,7 @@
 <script src="/js/layui/lay/dest/layui.all.js" type="text/javascript" charset="utf-8"></script>
 <script src="/js/base.js"></script>
 <script>
+	var index_msg = null;
 	$(function(){
 		$('.backtop').click(function(){
 		    $('html,body').stop().animate({scrollTop:0},420)
@@ -64,7 +65,7 @@
 		    }, 360)
 		})
 		$('.alert-msg').click(function(){
-			layer.open({
+			var index_msg = layer.open({
 			  	type: 2,
 			  	title: '留言咨询',
 			  	shadeClose: true,
@@ -74,4 +75,7 @@
 			}); 
 		})
 	})
+	function close_layer(info){
+		layer.msg(info)
+	}
 </script>

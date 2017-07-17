@@ -759,7 +759,7 @@ router.get('/messages/:type', function(req, res, next){
 })
 router.post('/messages', function(req, res, next){
 	//分类下不存在文章，逻辑删除分类；
-	Basic.updateOne('messages', {_id: ObjectID(req.body.id)}, {type: 1}, function(err1, result1){
+	Basic.updateOne('messages', {_id: ObjectID(req.body.id)}, {type: 1, msg: req.body.msg}, function(err1, result1){
 		if(err1){
 			return res.json({
 				code: 101,
