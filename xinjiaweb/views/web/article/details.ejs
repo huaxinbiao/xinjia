@@ -14,7 +14,7 @@
 	</head>
     <body>
         <div class="banner-nav-2017">
-        	<span style="display: block;height: 396px;width: 100%;min-width: 1200px;background:#F5F5F5 url(<% if(!!ification.ification_banner){ %><%= ification.ification_banner %><% }else{ %>/images/banner-2-2017.png<% } %>) no-repeat top center;background-size: auto 396px;"></span>
+        	<img style="display: block;max-height: 396px;width: auto;margin: 0 auto;max-width: 100%;" src="<% if(!!ification.ification_banner_big){ %><%= ification.ification_banner_big %><% }else{ %>/images/banner-2-2017.png<% } %>">
         	<% include ../layout/nav.ejs %>
         </div>
         

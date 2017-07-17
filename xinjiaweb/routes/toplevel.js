@@ -106,8 +106,7 @@ router.get('/professional', function(req, res, next){
 			res.render('admin/toplevel/professional', {
 				bodyclass: null,
 				result: result,
-				toplevel: topleveldata,
-				type: req.params.index
+				toplevel: topleveldata
 			});
 		})
 	})
@@ -147,6 +146,85 @@ router.post('/professional', function(req, res, next){
 	
 	//更新分类信息；
 	Basic.updateOne('toplevel', {type: 'professional'}, data, function(err, result){
+		if(err){
+			return res.json({
+				code: 101,
+				msg: '保存失败'
+			});
+		}
+		res.status(200);
+    	return res.json({
+			code: 200,
+			msg: '保存成功'
+		});
+	})
+})
+
+
+
+
+//法律知识管理
+router.get('/law', function(req, res, next){
+	var opation = {
+		delete: 0
+	};
+	var screem = {};
+	Basic.findData('ification', opation, screem, function(err, result){
+		if(err){
+			return res.redirect('/admin/404');
+		}
+		Basic.findOne('toplevel', {type: 'law'}, {}, function(err1, result1){
+			if(err1){
+				return res.redirect('/admin/404');
+			}
+			
+			if(result1&&result1.professional.length>0){
+				var topleveldata = result1.professional;
+			}else{
+				var topleveldata = [
+					['', '', ''],
+					['', '', ''],
+					['', '', ''],
+					['', '', ''],
+					['', '', ''],
+					['', '', '']
+				];
+			}
+			res.render('admin/toplevel/law', {
+				bodyclass: null,
+				result: result,
+				toplevel: topleveldata
+			});
+		})
+	})
+})
+
+//法律知识添加修改
+router.post('/law', function(req, res, next){
+	//opation搜索where条件
+	//screem指定那些列显示和不显示 （0表示不显示 1表示显示)
+	if(req.body.type!='law'){
+		return res.json({
+			code: 101,
+			msg: '数据不正确'
+		});
+	}
+	var law = [
+		[req.body.title1, req.body.describe1, req.body.ification1],
+		[req.body.title2, req.body.describe2, req.body.ification2],
+		[req.body.title3, req.body.describe3, req.body.ification3],
+		[req.body.title4, req.body.describe4, req.body.ification4],
+		[req.body.title5, req.body.describe5, req.body.ification5],
+		[req.body.title6, req.body.describe6, req.body.ification6]
+	];
+	var data = {
+		professional: law,
+		type: req.body.type,
+		time: new Date().getTime().toString()
+	}
+	
+	//更新分类信息；
+	Basic.updateOne('toplevel', {type: 'law'}, data, function(err, result){
 		if(err){
 			return res.json({
 				code: 101,

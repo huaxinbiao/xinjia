@@ -9,8 +9,8 @@
         		<% for(i in ification){ %>
         		<li>
         			<a href="/index/list/1/<%= ification[i]._id %>" title="<%= ification[i].describe %>">
-        				<h2><%= ification[i].title %></h2>
-        				<span class="layui-elip"><%= ification[i].describe %></span>
+        				<h2 style="line-height: 40px;height: 40px;"><%= ification[i].title %></h2>
+        				<!--<span class="layui-elip"><%= ification[i].describe %></span>-->
         			</a>
         		</li>
         		<% } %>
@@ -100,7 +100,7 @@
 	        		</div>
 	        		<p>
 	        			<a href="javascript:;" style="border: none;">咨询电话:13581810909</a>
-	        			<a href="javascript:;" id="alert-msg">留言咨询</a>
+	        			<a href="javascript:;">留言咨询</a>
 	        		</p>
 	        	</div>
 	        </div>
@@ -109,35 +109,35 @@
         <div class="falv-2017">
         	<div class="img-bg-1">
         		<a href="/index/list/index/5965cf7326def17eb1e7e6de">
-	        		<i><img src="/images/icon-13-2017.png"></i>
+	        		<i style="height: 65px;"></i>
 	        		<h3>对方违约 <br />如何维护权益？</h3>
 	        		<span>立刻查看</span>
         		</a>
         	</div>
         	<div class="img-bg-2">
         		<a href="/index/list/index/5965cfb026def17eb1e7e6e0">
-	        		<i><img src="/images/icon-13-2017.png"></i>
+	        		<i style="height: 65px;"></i>
 	        		<h3>借名买房<br />如何保证拿到房产？</h3>
 	        		<span>立刻查看</span>
         		</a>
         	</div>
         	<div class="img-bg-3">
         		<a href="/index/list/index/5965cf3226def17eb1e7e6dd">
-	        		<i><img src="/images/icon-13-2017.png"></i>
+	        		<i style="height: 65px;"></i>
 	        		<h3>亲人离世<br />如何办理房产继承？</h3>
 	        		<span>立刻查看</span>
         		</a>
         	</div>
         	<div class="img-bg-4">
         		<a href="/index/list/index/5965cf2826def17eb1e7e6dc">
-	        		<i><img src="/images/icon-13-2017.png"></i>
+	        		<i style="height: 65px;"></i>
 	        		<h3>离婚<br />如何分得房产？</h3>
 	        		<span>立刻查看</span>
         		</a>
         	</div>
         	<div class="img-bg-5">
         		<a href="/index/list/index/5965cfc126def17eb1e7e6e1">
-	        		<i><img src="/images/icon-13-2017.png"></i>
+	        		<i style="height: 65px;"></i>
 	        		<h3>法律事件<br />突发法律事件怎么办？</h3>
 	        		<span>立刻查看</span>
         		</a>
@@ -166,7 +166,7 @@
 	            <% }) %>
 			</ul>
 			<div class="p2017-gg-btn">
-    			<a href="index/download/index" target="_blank">查看更多  》</a>
+    			<a href="index/download/index">查看更多  》</a>
     		</div>
 		</div>
         <% } %>
@@ -181,92 +181,43 @@
         <h2 class="ph2">法律知识</h2>
         <div class="w1200 p2017-cf">
         	<div>
+        		<% if(law.length > 0){ %>
+	        	<% law.forEach(function(item, index){ %>
         		<dl>
         			<dt class="pbg-2017 pbg-2017-b1"></dt>
         			<dd>
-        				<span><a href="/index/list/index/5965cfc126def17eb1e7e6e1?label=2">法律顾问相关</a></span></a>
-        				<p>请提供文字</p>
+        				<span><a href="/index/list/index/<%= item[2] %>?label=2"><%= item[0] %></a></span></a>
+        				<p><%= item[1] %></p>
         				<div>
-        					<a href="/index/list/index/5965cfc126def17eb1e7e6e1?label=2">更多>></a>
+        					<a href="/index/list/index/<%= item[2] %>?label=2">更多>></a>
         				</div>
         			</dd>
         		</dl>
-        		<dl>
-        			<dt class="pbg-2017 pbg-2017-b2"></dt>
-        			<dd>
-        				<span><a href="/index/list/index/5965cf7326def17eb1e7e6de?label=2">二手房相关</a></span>
-        				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
-        				<div>
-        					<a href="/index/list/index/5965cf7326def17eb1e7e6de?label=2">更多>></a>
-        				</div>
-        			</dd>
-        		</dl>
-        		<dl>
-        			<dt class="pbg-2017 pbg-2017-b3"></dt>
-        			<dd>
-        				<span><a href="/index/list/index/5965cf2826def17eb1e7e6dc?label=2">婚姻房产相关</a></span>
-        				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
-        				<div>
-        					<a href="/index/list/index/5965cf2826def17eb1e7e6dc?label=2">更多>></a>
-        				</div>
-        			</dd>
-        		</dl>
-        		<dl>
-        			<dt class="pbg-2017 pbg-2017-b4"></dt>
-        			<dd>
-        				<span><a href="/index/list/index/5965cfb026def17eb1e7e6e0?label=2">借名买房相关</a></span>
-        				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
-        				<div>
-        					<a href="/index/list/index/5965cfb026def17eb1e7e6e0?label=2">更多>></a>
-        				</div>
-        			</dd>
-        		</dl>
-        		<dl>
-        			<dt class="pbg-2017 pbg-2017-b5"></dt>
-        			<dd>
-        				<span><a href="/index/list/index/5965cf3226def17eb1e7e6dd?label=2">继承房产相关</a></span>
-        				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
-        				<div>
-        					<a href="/index/list/index/5965cf3226def17eb1e7e6dd?label=2">更多>></a>
-        				</div>
-        			</dd>
-        		</dl>
-        		<dl>
-        			<dt class="pbg-2017 pbg-2017-b6"></dt>
-        			<dd>
-        				<span><a href="/index/list/index/5965cf9e26def17eb1e7e6df?label=2">分家析产相关</a></span>
-        				<p>经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。经济补偿金的工资计算标准是指企业正常生产情况下劳动者解除合同前12个月的月平均工资。</p>
-        				<div>
-        					<a href="/index/list/index/5965cf9e26def17eb1e7e6df?label=2">更多>></a>
-        				</div>
-        			</dd>
-        		</dl>
+	            <% }) %>
+	            <% } %>
         	</div>
         </div>
         <img src="/images/banner-1-2017.jpg" style="display: block;margin: 0 auto 50px;">
         <div class="bgf">
         	<div class="p2017-g">
-        		<span style="font-size: 20px;font-weight: 700;"><i style="font-size: 20px;">三大优势</i>，满足您成为私募基金管理人的一切需求</span>
+        		<span style="font-size: 20px;font-weight: 700;"><i style="font-size: 20px;">三大优势</i>，满足您的法律需求，保障您的合法权益</span>
         		<div class="p2017-gg" style="margin-bottom: 50px;">
         			<div>
         				<i class="pbg-2017 pbg-2017-g"></i>
         				<p>
-        					<span>专业</span>
-        					熟悉私募基金管理人登记的全部流程，精确把控每一个环节
+        					<span style="font-size: 24px;line-height: 76px;">专业</span>
         				</p>
         			</div>
         			<div>
         				<i class="pbg-2017 pbg-2017-h"></i>
         				<p>
-        					<span>效率</span>
-        					能够快速处理每个环节可能会遇到的问题
+        					<span style="font-size: 24px;line-height: 76px;">效率</span>
         				</p>
         			</div>
         			<div>
         				<i class="pbg-2017 pbg-2017-i"></i>
         				<p>
-        					<span>可信赖</span>
-        					信誉和通过率是检验一个律师团队是否值得信赖的最高标准
+        					<span style="font-size: 24px;line-height: 76px;">可信赖</span>
         				</p>
         			</div>
         		</div>
@@ -292,16 +243,6 @@
 					$(this).children('div').stop().animate({
 						top: '180px'
 					},500)
-				})
-				$('#alert-msg').click(function(){
-					layer.open({
-					  	type: 2,
-					  	title: '留言咨询',
-					  	shadeClose: true,
-					  	shade: 0.8,
-					  	area: ['580px', '400px'],
-					  	content: '/index/messages' //iframe的url
-					}); 
 				})
 		</script>
 <% include ../layout/footer.ejs %>

@@ -38,6 +38,10 @@ var navs = [{
 		"title": "专业特长设置",
 		"icon": "&#xe63c;",
 		"href": "/admin/toplevel/professional"
+	}, {
+		"title": "法律知识设置",
+		"icon": "&#xe63c;",
+		"href": "/admin/toplevel/law"
 	}]
 },{
 	"title": "下载管理",

@@ -11,25 +11,30 @@
 	<p>copyriht  2015京ICP备14023616号 京ICP证140543号</p>
 </div>
 <div class="toolbar">
-    <div class="service" style="width: 50px;">
+    <div class="service" style="width: 50px;background: #00C1DE;">
     	<a target="_blank" href="javascript:;">
     		<i class="icon"></i>联系电话
 		</a>
 		<div>联系电话：13581810909</div>
 	</div>
-    <div class="wx-right-0626">
+    <div class="wx-right-0626" style="background: #00C1DE;">
     	<a href="javascript:;">
     		<i class="icon"></i>微信二维码
 		</a>
-		<div style="padding: 10px;"><img src="/images/icon9.jpg"></div>
+		<div style="padding: 10px;left: -176px;"><img src="/images/icon9.jpg"></div>
 	</div>
-    <div class="cart-right">
+    <div class="cart-right" style="background: #00C1DE;">
     	<a href="javascript:;">
     		<i class="icon"></i>预约地址
 		</a>
 		<div>预约地址：预约地址预约地址预约地址</div>
 	</div>
-    <div class="top-right-0626 backtop">
+    <div class="top-right-0717 noshow alert-msg" style="background: #00C1DE;">
+    	<a href="javascript:;">
+    		<i class="icon"></i>留言咨询
+		</a>
+	</div>
+    <div class="top-right-0626 backtop noshow" style="background: #00C1DE;">
     	<a href="javascript:;">
     		<i class="icon"></i>返回顶部
 		</a>
@@ -44,19 +49,29 @@
 		    $('html,body').stop().animate({scrollTop:0},420)
 		})
 		$('.toolbar>div').hover(function(){
-			if(!$(this).hasClass('backtop')){
+			if(!$(this).hasClass('noshow')){
 				$(this).children('div').show()
 			}
 		    $(this).stop().animate({
 		        width: '138px'
 		    }, 360)
 		},function(){
-			if(!$(this).hasClass('backtop')){
+			if(!$(this).hasClass('noshow')){
 				$(this).children('div').hide()
 			}
 		    $(this).stop().animate({
 		        width: '50px'
 		    }, 360)
+		})
+		$('.alert-msg').click(function(){
+			layer.open({
+			  	type: 2,
+			  	title: '留言咨询',
+			  	shadeClose: true,
+			  	shade: 0.8,
+			  	area: ['580px', '400px'],
+			  	content: '/index/messages' //iframe的url
+			}); 
 		})
 	})
 </script>
