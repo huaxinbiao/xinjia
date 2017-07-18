@@ -607,7 +607,24 @@ router.get('/uploads/download/:time/:fileName', function(req, res, next) {
 	res.download('uploads/download/'+req.params.time+'/', req.params.fileName);
 });*/
 
-
+//咨询留言consultation
+router.get('/index/consultation', function(req, res, next) {
+	var page = req.query.page ? req.query.page : '1';
+	var strip = 10;
+	Page.find('messages', {}, {}, page, strip, function(err, docs, total){
+		if(err){
+			return res.redirect('/admin/404');
+		}
+		res.render('web/about/consultation', {
+			title: '信嘉法律咨询-咨询留言',
+			selected: 'consultation',
+			docs: docs,
+			page: Math.ceil(total / strip),
+			curr: page,
+			formatDateTime: Function.formatDateTime
+		});
+	})
+})
 
 
 module.exports = router;

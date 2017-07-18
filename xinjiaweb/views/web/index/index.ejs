@@ -99,8 +99,8 @@
 		        		</div>
 	        		</div>
 	        		<p>
-	        			<a href="javascript:;" style="border: none;">咨询电话:13581810909</a>
-	        			<a href="javascript:;">留言咨询</a>
+	        			<a href="javascript:;" style="border: none;float: left;padding: 0;margin: 0;">咨询电话:13581810909</a>
+	        			<a href="/index/consultation" class="liu-20170718">留言咨询</a>
 	        		</p>
 	        	</div>
 	        </div>
@@ -184,7 +184,7 @@
         		<% if(law.length > 0){ %>
 	        	<% law.forEach(function(item, index){ %>
         		<dl>
-        			<dt class="pbg-2017 pbg-2017-b1"></dt>
+        			<dt class="pbg-2017 pbg-2017-b<%= index+1 %>"></dt>
         			<dd>
         				<span><a href="/index/list/index/<%= item[2] %>?label=2"><%= item[0] %></a></span></a>
         				<p><%= item[1] %></p>

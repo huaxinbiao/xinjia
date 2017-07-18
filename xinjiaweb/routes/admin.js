@@ -763,13 +763,29 @@ router.post('/messages', function(req, res, next){
 		if(err1){
 			return res.json({
 				code: 101,
-				msg: '处理失败'
+				msg: '回复失败'
 			});
 		}
 		res.status(200);
     	return res.json({
 			code: 200,
-			msg: '处理成功'
+			msg: '回复成功'
+		});
+	})
+})
+//删除留言
+router.post('/delmessages', function(req, res, next){
+	Basic.deleteData('messages', {_id: ObjectID(req.body.id)}, 1, function(err1, result1){
+		if(err1){
+			return res.json({
+				code: 101,
+				msg: '删除失败'
+			});
+		}
+		res.status(200);
+    	return res.json({
+			code: 200,
+			msg: '删除成功'
 		});
 	})
 })

@@ -1,0 +1,50 @@
+<% include ../layout/header.ejs %>
+        <div class="banner-nav-2017">
+        	<img src="/images/banner-2-2017.png">
+        	<% include ../layout/nav.ejs %>
+        </div>
+        <div class="f5-body" style="min-width: 1200px;">
+			<!--面包屑-->
+			<div class="w1200 crumbs">
+				<a href="/">首页</a><i>/</i><span>留言咨询</span>
+			</div>
+			<div class="w1200">
+				<h2 class="consultation-h2">留言咨询  <a href="#" class="alert-msg">我要咨询</a></h2>
+				<ul class="consultation-list">
+        			<% if(docs.length > 0){ %>
+	        			<% docs.forEach(function(item, index){%>
+						<li>
+							<h2><span>咨询问题</span><%= item.content %></h2>
+							<p><% if(item.msg){ %><span>律师建议</span><%= item.msg %><% }else{ %><span>等待回复</span><% } %></p>
+						</li>
+			            <% }) %>
+        			<% }else{ %>
+					<li style="text-align: center;line-height: 100px;">
+						暂无咨询
+					</li>
+        			<% } %>
+				</ul>
+				<div id="paged" class="page">
+				</div>
+			</div>
+		</div>
+        
+<% include ../layout/footer-right.ejs %>
+<script>		
+	laypage({
+	    cont: 'paged'
+	    ,pages: <%= page %>
+	    ,curr: <%= curr %>
+	    ,first: 1
+	    ,last: <%= page %>
+	    ,prev: '<em><</em>'
+	    ,next: '<em>></em>'
+	    ,jump: function(obj, first){
+	    	var curr = obj.curr;
+	    	if(!first){
+	    		location.href = '/index/consultation?page='+curr;
+	    	}
+	    }
+	});
+</script>
+<% include ../layout/footer.ejs %>

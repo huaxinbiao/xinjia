@@ -30,7 +30,7 @@
 								<th>留言内容</th>
 								<th>回复内容</th>
 								<th style="width: 120px;">留言时间</th>
-								<th style="width: 80px;">操作</th>
+								<th style="width: 120px;">操作</th>
 							</tr>
 						</thead>
 						<tbody id="content">
@@ -48,8 +48,9 @@
 											<% if(item.type == 0){ %>
 											<a href="javascript:;" data-id="<%= item._id %>" class="layui-btn layui-btn-mini edit">回复留言</a>
 											<% }else{%>
-											<a href="javascript:;" data-id="<%= item._id %>" class="layui-btn layui-btn-danger layui-btn-mini">已回复</a>
+											<a href="javascript:;" data-id="<%= item._id %>" class="layui-btn layui-btn-warm layui-btn-mini">已回复</a>
 											<% } %>
+											<a href="javascript:;" data-id="<%= item._id %>" class="layui-btn layui-btn-danger layui-btn-mini del">删除</a>
 										</td>
 									</tr>
 								<% }) %>
@@ -107,7 +108,21 @@
 						  content: html
 						});
 					});
-					
+					$('.del').click(function(){
+						var self = $(this);
+						var id = $(this).attr('data-id');
+						layer.alert('你确认删除？',function(index){
+							$.post('/admin/delmessages', {id: id}, function(res){
+								layer.close(index);
+								if(res.code == 200){
+									self.parents('tr').remove();
+									location.reload();
+								}else{
+									layer.msg('删除失败，'+res.msg);
+								}
+							})
+						})
+					})
 					$(document).on('click', '.huifu', function(){
 						var msg = $(this).prev().val()
 						$.post('/admin/messages', {id: msg_id, msg: msg}, function(res){
