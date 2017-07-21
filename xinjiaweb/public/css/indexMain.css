@@ -1312,7 +1312,7 @@ table th {
 }
 .liu-20170718 {
   float: left;
-  margin-left: 434px;
+  margin-left: 434px !important;
 }
 .aliyun {
   overflow: hidden;
