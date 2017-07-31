@@ -8,7 +8,7 @@
         	<ul>
         		<% for(i in ification){ %>
         		<li>
-        			<a href="/index/list/1/<%= ification[i]._id %>" title="<%= ification[i].describe %>">
+        			<a class="nav-d<%= parseInt(i)+1 %>" href="/index/list/1/<%= ification[i]._id %>" title="<%= ification[i].describe %>">
         				<h2 style="line-height: 40px;height: 40px;"><%= ification[i].title %></h2>
         				<!--<span class="layui-elip"><%= ification[i].describe %></span>-->
         			</a>

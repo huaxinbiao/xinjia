@@ -1920,6 +1920,55 @@ table th {
   overflow: hidden;
   font-size: 12px;
 }
+.er-list-2017 > ul li a.nav-d1 {
+  background: url(../images/nav1.png) no-repeat 15px center;
+  background-size: 28px;
+}
+.er-list-2017 > ul li a.nav-d1:hover {
+  background-color: #303338;
+}
+.er-list-2017 > ul li a.nav-d2 {
+  background: url(../images/nav2.png) no-repeat 15px center;
+  background-size: 28px;
+}
+.er-list-2017 > ul li a.nav-d2:hover {
+  background-color: #303338;
+}
+.er-list-2017 > ul li a.nav-d3 {
+  background: url(../images/nav3.png) no-repeat 15px center;
+  background-size: 28px;
+}
+.er-list-2017 > ul li a.nav-d3:hover {
+  background-color: #303338;
+}
+.er-list-2017 > ul li a.nav-d4 {
+  background: url(../images/nav4.png) no-repeat 15px center;
+  background-size: 28px;
+}
+.er-list-2017 > ul li a.nav-d4:hover {
+  background-color: #303338;
+}
+.er-list-2017 > ul li a.nav-d5 {
+  background: url(../images/nav5.png) no-repeat 15px center;
+  background-size: 28px;
+}
+.er-list-2017 > ul li a.nav-d5:hover {
+  background-color: #303338;
+}
+.er-list-2017 > ul li a.nav-d6 {
+  background: url(../images/nav6.png) no-repeat 15px center;
+  background-size: 28px;
+}
+.er-list-2017 > ul li a.nav-d6:hover {
+  background-color: #303338;
+}
+.er-list-2017 > ul li a.nav-d7 {
+  background: url(../images/nav7.png) no-repeat 15px center;
+  background-size: 28px;
+}
+.er-list-2017 > ul li a.nav-d7:hover {
+  background-color: #303338;
+}
 .new-download {
   width: 1104px;
   margin: 0 auto;

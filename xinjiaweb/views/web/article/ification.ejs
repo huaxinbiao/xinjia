@@ -1,6 +1,6 @@
 <% include ../layout/header.ejs %>
         <div class="banner-nav-2017">
-        	<img src="/images/banner-2-2017.png" style="display: block;width: 100%;">
+        	<img src="<% if(type == 1){ %>/images/mediation-top-banner-bg.jpg<% }else{ %>/images/legal-knowledge-top-banner.jpg<% } %>" style="display: block;width: 100%;">
         	<% include ../layout/nav.ejs %>
         </div>
         
