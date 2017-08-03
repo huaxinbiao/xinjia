@@ -1,6 +1,19 @@
 <% include ../layout/header.ejs %>
+<link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css" rel="stylesheet">
+<style>.swiper-button-next, .swiper-button-prev{opacity: 0.5;}.swiper-button-next:hover, .swiper-button-prev:hover{opacity: 0.8;}</style>
         <div class="banner-nav-2017">
-        	<img src="/images/banner-2017.jpg" style="display: block;width: 100%;">
+        	<span style="display: block;">
+	        	<div class="swiper-container">
+				    <div class="swiper-wrapper">
+				        <div class="swiper-slide"><img src="/images/banner-2017.jpg" style="display: block;width: 100%;min-width: 1200px;"></div>
+				        <div class="swiper-slide"><img src="/images/banner-2017a.jpg" style="display: block;width: 100%;min-width: 1200px;"></div>
+				        <div class="swiper-slide"><img src="/images/banner-2017b.jpg" style="display: block;width: 100%;min-width: 1200px;"></div>
+				    </div>
+			        <!-- 如果需要导航按钮 -->
+				    <div class="swiper-button-prev swiper-button-white"></div>
+				    <div class="swiper-button-next swiper-button-white"></div>
+				</div>
+        	</span>
         	<% include ../layout/nav.ejs %>
         </div>
         <!--二级分类显示-->
@@ -224,6 +237,7 @@
         	</div>
         </div>
 <% include ../layout/footer-right.ejs %>
+<script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
 		<script>
 				$('.aliyun_li').hover(function(){
 					$(this).siblings('div').removeClass('active');
@@ -244,5 +258,11 @@
 						top: '180px'
 					},500)
 				})
+				var mySwiper = new Swiper ('.swiper-container', {
+					autoplay : 5000,
+			    	loop: true,
+			    	prevButton:'.swiper-button-prev',
+					nextButton:'.swiper-button-next',
+			  	})       
 		</script>
 <% include ../layout/footer.ejs %>

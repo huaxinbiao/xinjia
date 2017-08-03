@@ -860,6 +860,13 @@ router.post('/upload', function(req, res) {
 	}
 	var Route_type = ['ification_img', 'file', 'download'];
 	var type = req.query.type;
+	var str="";
+     req.on("data",function(dt){
+         str+=dt
+     })
+     req.on("end",function(){
+         console.log(str)
+     })
 	if(!type || Route_type.indexOf(type) == -1){
 		return res.json({
 			code: 101,
@@ -986,7 +993,12 @@ router.post('/upload', function(req, res) {
 		    } else {
 				if(type == 'file'){
 					//文章编辑器
-					res.status(200);
+					// 返回结果
+					res.writeHead(200, {
+						'Content-type': 'text/html'
+					});
+					res.end(req.headers.origin+'/'+newPath);
+					/*res.status(200);
 		        	return res.json({
 						code: 0,
 						data: {
@@ -994,7 +1006,7 @@ router.post('/upload', function(req, res) {
 							title: req.headers.origin
 						},
 						msg: '上传成功'
-					});
+					});*/
 				}
 				res.status(200);
 	        	return res.json({
