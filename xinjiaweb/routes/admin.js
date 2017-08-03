@@ -860,13 +860,6 @@ router.post('/upload', function(req, res) {
 	}
 	var Route_type = ['ification_img', 'file', 'download'];
 	var type = req.query.type;
-	var str="";
-     req.on("data",function(dt){
-         str+=dt
-     })
-     req.on("end",function(){
-         console.log(str)
-     })
 	if(!type || Route_type.indexOf(type) == -1){
 		return res.json({
 			code: 101,
