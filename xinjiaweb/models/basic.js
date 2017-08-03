@@ -169,3 +169,28 @@ exports.updateOne = function (coll, opation, data, callback){
 
 	});
 }
+
+
+
+/**
+ * @method 更新count
+ * @param {String} mongoConnectUrl 数据库连接
+ * @param {String} coll 集合名称
+ * @param {Object} opation 条件
+ * @param {Object} data 更新的数据
+ * @return {Null}
+ *
+ */
+exports.updateCount = function (coll, opation, count, callback){
+	MongoClient.connect(mongoConnectUrl, function(err, db){
+		if(err) return console.log(err);
+
+		var collection = db.collection(coll);
+		
+		collection.update(opation, count, function(err, result) {
+			db.close();
+			callback(err, result);
+		});
+
+	});
+}

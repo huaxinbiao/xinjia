@@ -477,6 +477,16 @@ router.get('/index/article/:article_id', function(req, res, next) {
 								docs: docs,
 								formatDateTime: Function.formatDateTime
 							});
+							Basic.updateCount(AdmincConst.SOLPREFIX + result.collection, opation, {
+								$inc: {"count": 1}
+							}, function(err, result){
+								
+							})
+							Basic.updateCount('articlecollection', {article_id: ObjectID(article_id)}, {
+								$inc: {"count": 1}
+							}, function(err, result){
+								
+							})
 						})
 					})
 				})

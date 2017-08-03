@@ -30,6 +30,7 @@
 								<th>文章简介</th>
 								<th style="width: 200px;">所属分类</th>
 								<th style="width: 100px;">文章标记</th>
+								<th style="width: 50px;">浏览量</th>
 								<th style="width: 120px;">发布时间</th>
 								<th style="width: 130px;">操作</th>
 							</tr>
@@ -44,6 +45,7 @@
 										<td><%= item.briefing %></td>
 										<td><%= item.ification_title %></td>
 										<td><%= item.label==1?'成功案例':'实用信息' %></td>
+										<td><%= item.count?item.count:0 %></td>
 										<td><%= formatDateTime(item.time, 1) %></td>
 										<td>
 											<a href="javascript:;" data-id="<%= item.article_id %>" class="layui-btn layui-btn-mini edit">编辑</a>

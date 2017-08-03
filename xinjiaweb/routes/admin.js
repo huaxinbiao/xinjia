@@ -431,6 +431,7 @@ router.post('/article/addarticle', function(req, res, next) {
 			label: req.body.label,
 			keywords: req.body.keywords,
 			content: req.body.content,
+			count: 0,
 			time: new Date().getTime().toString()
 		}
 		Basic.insertOne(AdmincConst.SOLPREFIX + ification_id, data, function(err1, result1){
@@ -458,6 +459,7 @@ router.post('/article/addarticle', function(req, res, next) {
 				collection: ification_id,
 				ification_id: ification_id,
 				ification_title: result.title,
+				count: 0,
 				time: new Date().getTime().toString()
 			}
 			Basic.insertOne('articlecollection', data_collection, function(err2, result2){
@@ -990,7 +992,7 @@ router.post('/upload', function(req, res) {
 					res.writeHead(200, {
 						'Content-type': 'text/html'
 					});
-					res.end(req.headers.origin+'/'+newPath);
+					return res.end(req.headers.origin+'/'+newPath);
 					/*res.status(200);
 		        	return res.json({
 						code: 0,

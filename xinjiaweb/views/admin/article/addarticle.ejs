@@ -95,9 +95,10 @@
 		        '|',
 		        'undo',
 		        'redo'
-		     ];
-		     // 上传图片（举例）
-    		editor.config.uploadImgUrl = '/admin/upload?type=file';
+	     	];
+	     	// 上传图片（举例）
+	     	editor.config.uploadImgFileName = 'file';
+			editor.config.uploadImgUrl = '/admin/upload?type=file';
     		editor.create();
     		//
 			layui.use(['form', 'layedit', 'laydate', 'jquery'], function() {
