@@ -26,7 +26,7 @@
 			<div class="w1200">
 				<div class="floatLeft article">
 					<h2><%= article.title %></h2>
-					<p><%= formatDateTime(article.time) %>&nbsp;&nbsp;&nbsp;&nbsp;<%= article.author %>&nbsp;&nbsp; </p>
+					<p>发布时间：<%= formatDateTime(article.time) %>&nbsp;&nbsp;&nbsp;&nbsp;<%= article.author %>&nbsp;&nbsp;&nbsp;&nbsp; 浏览：<%= article.count?article.count:0 %>次</p>
 					<div class="box" style="min-height: 500px;">
 						<%- article.content %>
 					</div>
